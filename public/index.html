@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive LVN operating model for governance, delivery, participation, and value exchange.">
+  <title>LVN Operating Model</title>
+  <link rel="icon" href="assets/logos/lvnx-wordmark-purple.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;family=Montserrat:wght@600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #290078;
+      --deep-purple: #302772;
+      --cyan: #2CB1DE;
+      --navy: #2D286F;
+      --white: #FFFFFF;
+      --light: #F2F2F2;
+      --ink: #231F20;
+      --muted: #5F5B67;
+      --line: #D7D3DF;
+      --lavender: #EAE5F5;
+      --cyan-soft: #E3F5FB;
+      --max: 1220px;
+      --header-height: 74px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 20px); }
+
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--ink);
+      font-family: "Lato", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    body.nav-open { overflow: hidden; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    h1, h2, h3, h4, .eyebrow, .nav__link, .button, .unit-button, .tab-button {
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1 { margin-bottom: 26px; font-size: clamp(46px, 6.2vw, 86px); line-height: 0.98; letter-spacing: -0.035em; }
+    h2 { margin-bottom: 20px; font-size: clamp(34px, 4.3vw, 58px); line-height: 1.02; letter-spacing: -0.03em; }
+    h3 { margin-bottom: 10px; font-size: clamp(22px, 2.1vw, 30px); line-height: 1.12; letter-spacing: -0.015em; }
+    h4 { margin-bottom: 7px; font-size: 18px; line-height: 1.2; }
+    p { margin-bottom: 18px; }
+    ul { margin: 0; padding-left: 1.15em; }
+    li + li { margin-top: 7px; }
+
+    :focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+    ::selection { background: var(--cyan); color: var(--ink); }
+
+    .scroll-progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      height: 4px;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .scroll-progress__bar {
+      width: 0;
+      height: 100%;
+      background: var(--cyan);
+      transition: width 80ms linear;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      height: var(--header-height);
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      width: min(var(--max), calc(100% - 40px));
+      height: 100%;
+      margin: 0 auto;
+    }
+
+    .brand-link { flex: 0 0 auto; }
+    .brand-link img { width: 88px; height: auto; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+    }
+
+    .nav__link {
+      padding: 9px 10px;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .nav__link:hover,
+    .nav__link.active { border-color: var(--cyan); color: var(--purple); }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 11px 18px;
+      border: 2px solid var(--purple);
+      background: var(--purple);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .button:hover { background: var(--navy); border-color: var(--navy); }
+    .button--outline { background: transparent; color: var(--purple); }
+    .button--outline:hover { background: var(--lavender); color: var(--purple); }
+    .button--light { border-color: var(--white); background: var(--white); color: var(--purple); }
+    .button--light:hover { border-color: var(--cyan); background: var(--cyan); color: var(--ink); }
+    .button--ghost { border-color: rgba(255,255,255,.48); background: transparent; color: var(--white); }
+    .button--ghost:hover { border-color: var(--cyan); background: rgba(44,177,222,.14); }
+    .button--small { min-height: 38px; padding: 7px 12px; font-size: 12px; }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      margin-left: auto;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--purple);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(82px, 10vw, 140px) 0;
+      overflow: clip;
+    }
+
+    .section--light { background: var(--light); }
+    .section--dark { background: var(--deep-purple); color: var(--white); }
+
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
+      gap: 56px;
+      align-items: end;
+      margin-bottom: 54px;
+    }
+
+    .section-heading p { margin-bottom: 5px; color: var(--muted); font-size: 20px; }
+    .section--dark .section-heading p { color: rgba(255,255,255,.76); }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 15px;
+      color: var(--purple);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .section--dark .eyebrow { color: var(--cyan); }
+
+    .source-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 6px 9px;
+      border: 1px solid currentColor;
+      color: var(--purple);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .source-tag::before { content: ""; width: 7px; height: 7px; background: var(--cyan); }
+    .source-tag--dark { color: var(--white); }
+    .source-tag--decision { border-style: dashed; }
+
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: calc(100svh - var(--header-height));
+      align-items: center;
+      overflow: hidden;
+      background: var(--deep-purple);
+      color: var(--white);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("assets/backgrounds/dark-purple-content-x-right.png") center / cover no-repeat;
+      opacity: 0.96;
+    }
+
+    .hero-inner { position: relative; z-index: 1; width: min(var(--max), calc(100% - 40px)); margin: 0 auto; padding: 86px 0 74px; }
+    .hero-copy { max-width: 850px; }
+    .hero-copy .eyebrow { color: var(--cyan); }
+    .hero-lede { max-width: 760px; margin-bottom: 30px; color: rgba(255,255,255,.84); font-size: clamp(21px, 2.25vw, 30px); line-height: 1.35; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .hero-principle {
+      max-width: 940px;
+      margin: 48px 0 0;
+      padding-left: 22px;
+      border-left: 5px solid var(--cyan);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: clamp(20px, 2.1vw, 28px);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .hero-model {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 1040px;
+      margin-top: 60px;
+      border-top: 1px solid rgba(255,255,255,.35);
+      border-bottom: 1px solid rgba(255,255,255,.22);
+    }
+
+    .hero-model__item { padding: 22px 20px 24px 0; }
+    .hero-model__item + .hero-model__item { padding-left: 20px; border-left: 1px solid rgba(255,255,255,.22); }
+    .hero-model__number { display: block; margin-bottom: 8px; color: var(--cyan); font: 900 12px/1 "Montserrat",Arial,sans-serif; letter-spacing: .12em; }
+    .hero-model__item strong { display: block; margin-bottom: 4px; font: 800 19px/1.2 "Montserrat",Arial,sans-serif; }
+    .hero-model__item span:last-child { color: rgba(255,255,255,.7); font-size: 15px; }
+
+    .north-star-grid { display: grid; grid-template-columns: 1.12fr .88fr; gap: 70px; align-items: start; }
+    .vision-statement { padding: 34px 0 34px 30px; border-left: 7px solid var(--cyan); font: 800 clamp(25px,3vw,40px)/1.23 "Montserrat",Arial,sans-serif; color: var(--purple); }
+    .principle-list { border-top: 4px solid var(--purple); }
+    .principle-row { display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .principle-row__number { color: var(--cyan); font: 900 13px/1.5 "Montserrat",Arial,sans-serif; }
+    .principle-row strong { color: var(--purple); }
+
+    .priority-band { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 72px; }
+    .priority { position: relative; min-height: 330px; padding: 78px 30px 30px; background: var(--purple); color: var(--white); }
+    .priority + .priority { border-left: 1px solid rgba(255,255,255,.2); }
+    .priority__number { position: absolute; top: -23px; left: 0; display: grid; place-items: center; width: 64px; height: 64px; background: var(--cyan); font: 900 28px/1 "Montserrat",Arial,sans-serif; }
+    .priority p { color: rgba(255,255,255,.77); }
+
+    .structure-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .filter-button, .tab-button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .filter-button:hover, .filter-button.active, .tab-button:hover, .tab-button.active { border-color: var(--purple); background: var(--purple); color: var(--white); }
+
+    .structure-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(340px, .75fr); gap: 28px; align-items: start; }
+    .org-map { padding: 28px; border: 1px solid var(--line); background: var(--white); }
+
+    .tier-label { display: flex; align-items: center; gap: 12px; margin: 27px 0 12px; color: var(--muted); font: 900 11px/1 "Montserrat",Arial,sans-serif; letter-spacing: .13em; text-transform: uppercase; }
+    .tier-label:first-child { margin-top: 0; }
+    .tier-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+    .org-tier { display: grid; gap: 10px; }
+    .org-tier--top { grid-template-columns: .85fr 1.3fr .85fr; }
+    .org-tier--committees { grid-template-columns: repeat(3, 1fr); }
+    .org-tier--branches { grid-template-columns: repeat(2, 1fr); }
+
+    .unit-button {
+      position: relative;
+      min-height: 68px;
+      padding: 12px 14px;
+      border: 1px solid #C8C1D9;
+      background: var(--white);
+      color: var(--purple);
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
+      transition: opacity 150ms ease, transform 150ms ease, border-color 150ms ease, background 150ms ease;
+    }
+
+    .unit-button:hover { transform: translateY(-2px); border-color: var(--cyan); }
+    .unit-button.selected { border-color: var(--cyan); box-shadow: inset 0 -5px 0 var(--cyan); }
+    .unit-button[data-layer="governance"] { border-color: var(--purple); background: var(--purple); color: var(--white); }
+    .unit-button[data-layer="operations"] { border: 2px solid var(--cyan); background: var(--cyan-soft); }
+    .unit-button[data-layer="community"] { border-color: var(--cyan); background: var(--cyan-soft); color: var(--navy); }
+    .unit-button[data-layer="advisory"] { border-color: var(--cyan); background: var(--navy); color: var(--white); }
+    .unit-button[data-layer="decision"] { border: 2px dashed var(--cyan); background: var(--lavender); }
+    .unit-button.is-dimmed { opacity: .16; }
+
+    .branch-group { padding: 12px; border: 1px solid var(--line); background: var(--light); }
+    .branch-group__label { display: block; margin-bottom: 9px; color: var(--muted); font-size: 12px; font-weight: 900; text-transform: uppercase; }
+    .branch-group .unit-button { width: 100%; min-height: 58px; margin-top: 7px; }
+
+    .retire-line { margin-top: 22px; padding: 12px 14px; border-left: 4px solid var(--muted); background: var(--light); color: var(--muted); font-size: 15px; }
+
+    .detail-panel { position: sticky; top: calc(var(--header-height) + 20px); min-height: 590px; padding: 28px; background: var(--deep-purple); color: var(--white); }
+    .detail-panel__layer { display: block; margin-bottom: 14px; color: var(--cyan); font: 900 11px/1 "Montserrat",Arial,sans-serif; letter-spacing: .13em; text-transform: uppercase; }
+    .detail-panel h3 { font-size: 32px; }
+    .detail-panel__purpose { padding-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.78); font-size: 19px; }
+    .detail-section { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,.18); }
+    .detail-section h4 { color: var(--cyan); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+    .detail-section p, .detail-section li { color: rgba(255,255,255,.83); font-size: 16px; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 18px; color: var(--muted); font-size: 14px; }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .legend i { width: 12px; height: 12px; background: var(--purple); }
+    .legend .legend--cyan { background: var(--cyan); }
+    .legend .legend--white { border: 1px solid var(--purple); background: var(--white); }
+    .legend .legend--dash { border: 1px dashed var(--cyan); background: transparent; }
+
+    .participation-layout { display: grid; grid-template-columns: 280px minmax(0,1fr); gap: 40px; align-items: start; }
+    .vertical-tabs { display: grid; gap: 8px; }
+    .vertical-tabs .tab-button { width: 100%; min-height: 58px; text-align: left; }
+
+    .exchange-panel { min-height: 500px; padding: 42px; background: var(--white); color: var(--ink); }
+    .exchange-panel__header { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+    .exchange-panel__header p { max-width: 540px; margin: 0; color: var(--muted); }
+    .exchange-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 30px; }
+    .exchange-block { padding-top: 17px; border-top: 5px solid var(--purple); }
+    .exchange-block:nth-child(2) { border-color: var(--cyan); }
+    .exchange-block:nth-child(3) { border-color: var(--navy); }
+    .exchange-block h4 { color: var(--purple); }
+    .exchange-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 30px; }
+    .exchange-note { padding: 18px; border-left: 4px solid var(--cyan); background: var(--cyan-soft); }
+    .exchange-note strong { color: var(--purple); }
+
+    .workflow { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: 36px; }
+    .workflow-step { position: relative; min-height: 210px; padding: 28px 22px; border-top: 5px solid var(--cyan); background: rgba(255,255,255,.08); }
+    .workflow-step + .workflow-step { border-left: 1px solid rgba(255,255,255,.18); }
+    .workflow-step__number { display: block; margin-bottom: 14px; color: var(--cyan); font: 900 12px/1 "Montserrat",Arial,sans-serif; letter-spacing: .12em; }
+    .workflow-step h3 { font-size: 20px; }
+    .workflow-step p { margin-bottom: 0; color: rgba(255,255,255,.7); font-size: 15px; }
+
+    .cadence-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 42px; margin-top: 62px; align-items: start; }
+    .cadence-tabs { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
+    .cadence-tabs .tab-button { min-height: 66px; text-align: left; }
+    .cadence-panel { min-height: 280px; padding: 30px; border-left: 6px solid var(--cyan); background: rgba(255,255,255,.09); }
+    .cadence-panel__meta { color: var(--cyan); font: 900 12px/1 "Montserrat",Arial,sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+    .cadence-panel p, .cadence-panel li { color: rgba(255,255,255,.8); }
+    .cadence-panel__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 22px; }
+
+    .portfolio-grid { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .portfolio-item { min-height: 245px; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--white); }
+    .portfolio-item__type { display: block; margin-bottom: 13px; color: var(--cyan); font: 900 11px/1 "Montserrat",Arial,sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+    .portfolio-item h3 { color: var(--purple); }
+    .portfolio-item p { color: var(--muted); }
+    .portfolio-item__proof { padding-top: 13px; border-top: 1px solid var(--line); color: var(--ink) !important; font-weight: 700; }
+
+    .sig-band { margin-top: 70px; padding: 40px; background: var(--purple); color: var(--white); }
+    .sig-band__header { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-bottom: 30px; }
+    .sig-band__header p { color: rgba(255,255,255,.72); }
+    .sig-grid { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(255,255,255,.22); border-left: 1px solid rgba(255,255,255,.22); }
+    .sig-item { min-height: 220px; padding: 24px; border-right: 1px solid rgba(255,255,255,.22); border-bottom: 1px solid rgba(255,255,255,.22); }
+    .sig-item h3 { font-size: 20px; }
+    .sig-item p { color: rgba(255,255,255,.72); font-size: 15px; }
+    .sig-output { display: grid; grid-template-columns: repeat(4,1fr); margin-top: 24px; background: var(--cyan); color: var(--ink); }
+    .sig-output div { padding: 17px 20px; font-weight: 700; }
+    .sig-output div + div { border-left: 1px solid rgba(41,0,120,.25); }
+
+    .roadmap-layout { display: grid; grid-template-columns: 270px minmax(0,1fr); gap: 42px; align-items: start; }
+    .roadmap-tabs { display: grid; gap: 8px; }
+    .roadmap-tabs .tab-button { min-height: 64px; text-align: left; }
+    .roadmap-panel { min-height: 410px; padding: 38px; border-top: 7px solid var(--cyan); background: var(--white); }
+    .roadmap-panel__date { color: var(--purple); font: 900 12px/1 "Montserrat",Arial,sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+    .roadmap-panel h3 { margin-top: 14px; color: var(--purple); font-size: 38px; }
+    .roadmap-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 26px; }
+    .roadmap-action { display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding: 17px; background: var(--light); }
+    .roadmap-action__check { display: grid; place-items: center; width: 28px; height: 28px; background: var(--cyan); color: var(--ink); font-weight: 900; }
+    .roadmap-outcome { margin-top: 25px; padding: 18px 20px; border-left: 5px solid var(--purple); background: var(--lavender); }
+
+    .decision-summary { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-bottom: 34px; }
+    .decision-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .decision-list { border-top: 1px solid rgba(255,255,255,.25); }
+    .decision-row { display: grid; grid-template-columns: minmax(0,1.5fr) 160px 160px 125px; gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,.2); }
+    .decision-row h3 { margin-bottom: 4px; font-size: 21px; }
+    .decision-row p { margin: 0; color: rgba(255,255,255,.68); font-size: 15px; }
+    .field-label { display: block; margin-bottom: 6px; color: var(--cyan); font-size: 11px; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
+    [contenteditable="true"] { min-height: 36px; padding: 6px 7px; border: 1px dashed rgba(255,255,255,.5); background: rgba(255,255,255,.08); color: var(--white); outline: none; }
+    [contenteditable="true"]:focus { border-style: solid; border-color: var(--cyan); background: rgba(44,177,222,.15); }
+    [contenteditable="true"]:empty::before { content: attr(data-placeholder); color: rgba(255,255,255,.45); font-style: italic; }
+    .status-toggle { min-height: 42px; padding: 8px 10px; border: 1px solid var(--cyan); background: transparent; color: var(--white); font: 900 12px/1 "Montserrat",Arial,sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+    .status-toggle[data-status="Discussing"] { background: rgba(44,177,222,.2); }
+    .status-toggle[data-status="Decided"] { background: var(--cyan); color: var(--ink); }
+
+    .scorecard-wrap { margin-top: 60px; overflow-x: auto; }
+    .scorecard { width: 100%; min-width: 900px; border-collapse: collapse; }
+    .scorecard th, .scorecard td { padding: 14px 13px; border-bottom: 1px solid rgba(255,255,255,.2); text-align: left; vertical-align: top; }
+    .scorecard th { color: var(--cyan); font: 900 11px/1.2 "Montserrat",Arial,sans-serif; letter-spacing: .09em; text-transform: uppercase; }
+    .scorecard td { color: rgba(255,255,255,.8); font-size: 15px; }
+    .scorecard td:first-child { color: var(--white); font-weight: 900; }
+    .scorecard [contenteditable="true"] { min-width: 90px; }
+
+    .conflicts { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 48px; }
+    .conflict { padding: 20px; border-left: 4px solid var(--cyan); background: rgba(255,255,255,.08); }
+    .conflict h4 { color: var(--white); }
+    .conflict p { margin: 0; color: rgba(255,255,255,.68); font-size: 15px; }
+
+    .site-footer { background: #161225; color: var(--white); }
+    .footer-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; width: min(var(--max), calc(100% - 40px)); margin: 0 auto; padding: 64px 0; }
+    .footer-brand img { width: 120px; margin-bottom: 22px; }
+    .footer-brand p { max-width: 540px; color: rgba(255,255,255,.66); }
+    .footer-test { padding-left: 30px; border-left: 5px solid var(--cyan); }
+    .footer-test h3 { font-size: 25px; }
+    .footer-test ul { color: rgba(255,255,255,.72); }
+    .footer-bottom { padding: 18px 20px; border-top: 1px solid rgba(255,255,255,.13); color: rgba(255,255,255,.55); font-size: 13px; text-align: center; }
+
+    .back-to-top { position: fixed; right: 18px; bottom: 18px; z-index: 70; display: none; width: 46px; height: 46px; border: none; background: var(--purple); color: var(--white); font-size: 23px; box-shadow: 0 8px 30px rgba(41,0,120,.24); }
+    .back-to-top.visible { display: grid; place-items: center; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    @media (max-width: 1050px) {
+      .nav { display: none; position: fixed; inset: var(--header-height) 0 0; flex-direction: column; align-items: stretch; gap: 0; padding: 26px 24px; background: var(--white); }
+      .nav.open { display: flex; }
+      .nav__link { padding: 16px 4px; border-bottom: 1px solid var(--line); font-size: 16px; }
+      .menu-button { display: block; }
+      .header-inner > .button { display: none; }
+      .section-heading { grid-template-columns: 1fr; gap: 10px; }
+      .structure-layout { grid-template-columns: 1fr; }
+      .detail-panel { position: relative; top: auto; min-height: 0; }
+      .workflow { grid-template-columns: repeat(3,1fr); }
+      .workflow-step:nth-child(4) { border-left: 0; }
+      .portfolio-grid { grid-template-columns: repeat(2,1fr); }
+      .sig-grid, .sig-output { grid-template-columns: repeat(2,1fr); }
+      .sig-item:nth-child(3), .sig-output div:nth-child(3) { border-left: 0; }
+    }
+
+    @media (max-width: 760px) {
+      :root { --header-height: 66px; }
+      body { font-size: 17px; }
+      .header-inner, .container, .hero-inner, .footer-inner { width: min(100% - 28px, var(--max)); }
+      .brand-link img { width: 78px; }
+      .section { padding: 74px 0; }
+      .hero { min-height: auto; }
+      .hero-inner { padding: 70px 0; }
+      .hero-actions .button { width: 100%; }
+      .hero-model { grid-template-columns: 1fr 1fr; }
+      .hero-model__item:nth-child(3) { border-left: 0; border-top: 1px solid rgba(255,255,255,.22); }
+      .hero-model__item:nth-child(4) { border-top: 1px solid rgba(255,255,255,.22); }
+      .north-star-grid, .participation-layout, .cadence-layout, .roadmap-layout, .footer-inner { grid-template-columns: 1fr; }
+      .priority-band { grid-template-columns: 1fr; gap: 34px; }
+      .priority + .priority { border-left: 0; }
+      .org-map { padding: 18px; }
+      .org-tier--top, .org-tier--committees, .org-tier--branches { grid-template-columns: 1fr; }
+      .unit-button { min-height: 58px; }
+      .detail-grid, .exchange-grid, .exchange-footer, .cadence-panel__grid, .roadmap-actions, .conflicts { grid-template-columns: 1fr; }
+      .exchange-panel { padding: 26px 20px; }
+      .exchange-panel__header { display: block; }
+      .workflow { grid-template-columns: 1fr; }
+      .workflow-step + .workflow-step { border-left: 0; border-top-color: var(--cyan); }
+      .cadence-tabs { grid-template-columns: 1fr; }
+      .portfolio-grid, .sig-grid, .sig-output { grid-template-columns: 1fr; }
+      .sig-band { padding: 28px 20px; }
+      .sig-band__header { grid-template-columns: 1fr; gap: 10px; }
+      .sig-output div + div { border-left: 0; border-top: 1px solid rgba(41,0,120,.25); }
+      .decision-summary { grid-template-columns: 1fr; }
+      .decision-actions { justify-content: flex-start; }
+      .decision-row { grid-template-columns: 1fr 1fr; }
+      .decision-row__copy, .decision-row__status { grid-column: 1 / -1; }
+      .footer-test { padding-left: 20px; }
+    }
+
+    @media print {
+      .site-header, .scroll-progress, .back-to-top, .decision-actions { display: none !important; }
+      html { scroll-padding-top: 0; }
+      body { font-size: 12pt; }
+      .hero { min-height: auto; break-after: page; }
+      .section { padding: 42px 0; break-inside: avoid; }
+      .detail-panel { position: static; }
+      .button { text-decoration: none; }
+      [contenteditable="true"] { border-color: currentColor; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__bar" id="scrollProgress"></div></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand-link" href="#top" aria-label="LVN operating model home"><img src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx"></a>
+      <nav class="nav" id="siteNav" aria-label="Main navigation">
+        <a class="nav__link" href="#model">Model</a>
+        <a class="nav__link" href="#structure">Structure</a>
+        <a class="nav__link" href="#participation">Participation</a>
+        <a class="nav__link" href="#work">Work</a>
+        <a class="nav__link" href="#portfolio">Portfolio</a>
+        <a class="nav__link" href="#roadmap">Roadmap</a>
+        <a class="nav__link" href="#decisions">Decisions</a>
+      </nav>
+      <a class="button button--small button--outline" href="deck.html">Presentation view</a>
+      <button class="menu-button" id="menuButton" type="button" aria-controls="siteNav" aria-expanded="false" aria-label="Open navigation">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">LVN Board working model · 2026–2027</span>
+          <h1 id="hero-title">LVN needs a visible operating system.</h1>
+          <p class="hero-lede">This site shows who governs, who coordinates, who delivers, who advises, and what each participant should receive in return.</p>
+          <div class="hero-actions">
+            <a class="button button--light" href="#structure">Explore the structure <span aria-hidden="true">↓</span></a>
+            <a class="button button--ghost" href="#decisions">Review open decisions</a>
+          </div>
+        </div>
+        <p class="hero-principle">The Board sets direction and boundaries. Staff runs the portfolio. Volunteer groups create member value. Councils and partners bring signal without taking control.</p>
+        <div class="hero-model" aria-label="Operating model summary">
+          <div class="hero-model__item"><span class="hero-model__number">01</span><strong>Govern</strong><span>Board of Directors</span></div>
+          <div class="hero-model__item"><span class="hero-model__number">02</span><strong>Coordinate</strong><span>Staff and operations</span></div>
+          <div class="hero-model__item"><span class="hero-model__number">03</span><strong>Deliver</strong><span>Committees, teams, SIGs</span></div>
+          <div class="hero-model__item"><span class="hero-model__number">04</span><strong>Listen</strong><span>Members, councils, partners</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="model" data-nav-section>
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">01 · The model</span><h2>Start with member value. Build structure around it.</h2></div>
+          <div><p>The strategic plan and restructuring proposal become one chain: direction, structure, communities, participation, and proof.</p><span class="source-tag">Source plan + synthesis</span></div>
+        </div>
+        <div class="north-star-grid">
+          <div>
+            <div class="vision-statement">LVN will deepen value for Legal Project Management, Practice Management, and Pricing professionals, add C-suite leaders from those disciplines, and expand carefully into Innovation &amp; AI and Law Firm Growth.</div>
+          </div>
+          <div class="principle-list" aria-label="LVN guiding principles">
+            <div class="principle-row"><span class="principle-row__number">01</span><div><strong>Member-led.</strong> Members are the reason for the structure.</div></div>
+            <div class="principle-row"><span class="principle-row__number">02</span><div><strong>High trust.</strong> Peer-driven experiences stay practical and candid.</div></div>
+            <div class="principle-row"><span class="principle-row__number">03</span><div><strong>Function-specific.</strong> Content connects to real work.</div></div>
+            <div class="principle-row"><span class="principle-row__number">04</span><div><strong>Career-spanning.</strong> LVN should matter from entry level through C-suite.</div></div>
+            <div class="principle-row"><span class="principle-row__number">05</span><div><strong>Adaptive.</strong> New audiences enter through deliberate pilots.</div></div>
+          </div>
+        </div>
+        <div class="priority-band">
+          <article class="priority"><span class="priority__number">1</span><h3>Strengthen the core</h3><p>Improve member value, run LVNx 2026, recruit C-suite members, and build an emerging leadership bench.</p></article>
+          <article class="priority"><span class="priority__number">2</span><h3>Define the expansion</h3><p>Clarify the audience, promise, content, and experiences for Innovation &amp; AI and Law Firm Growth.</p></article>
+          <article class="priority"><span class="priority__number">3</span><h3>Acquire and integrate</h3><p>Use partnerships, targeted recruitment, and new communities only after the operating model can support them.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--light" id="structure" data-nav-section>
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">02 · Structure explorer</span><h2>Click any group to see its job.</h2></div>
+          <div><p>The target model separates governance, operations, delivery, community, and advice. Dashed groups still require a Board choice.</p><span class="source-tag source-tag--decision">Proposed structure</span></div>
+        </div>
+        <div class="structure-toolbar" role="group" aria-label="Filter structure by layer">
+          <button class="filter-button active" type="button" data-filter="all">Show all</button>
+          <button class="filter-button" type="button" data-filter="governance">Governance</button>
+          <button class="filter-button" type="button" data-filter="operations">Operations</button>
+          <button class="filter-button" type="button" data-filter="delivery">Delivery</button>
+          <button class="filter-button" type="button" data-filter="community">Community</button>
+          <button class="filter-button" type="button" data-filter="advisory">Advisory</button>
+          <button class="filter-button" type="button" data-filter="decision">Open decisions</button>
+        </div>
+        <div class="structure-layout">
+          <div>
+            <div class="org-map" aria-label="Interactive LVN organization structure">
+              <div class="tier-label">Governance and operations</div>
+              <div class="org-tier org-tier--top">
+                <button class="unit-button" type="button" data-unit="staff" data-layer="operations">Staff / Operations</button>
+                <button class="unit-button selected" type="button" data-unit="board" data-layer="governance">Board of Directors</button>
+                <button class="unit-button" type="button" data-unit="advisory-board" data-layer="decision">Advisory Board<br>define, merge, or retire</button>
+              </div>
+              <div class="tier-label">Standing delivery groups</div>
+              <div class="org-tier org-tier--committees">
+                <button class="unit-button" type="button" data-unit="conference" data-layer="delivery">Conference</button>
+                <button class="unit-button" type="button" data-unit="education" data-layer="delivery">Education</button>
+                <button class="unit-button" type="button" data-unit="finance" data-layer="delivery">Finance</button>
+                <button class="unit-button" type="button" data-unit="membership" data-layer="delivery">Membership</button>
+                <button class="unit-button" type="button" data-unit="sponsorship" data-layer="delivery">Sponsorship &amp; Partnerships</button>
+                <button class="unit-button" type="button" data-unit="win" data-layer="decision">WIN placement decision</button>
+              </div>
+              <div class="tier-label">Substructures and communities</div>
+              <div class="org-tier org-tier--branches">
+                <div class="branch-group"><span class="branch-group__label">Conference branch</span><button class="unit-button" type="button" data-unit="programming" data-layer="delivery">Programming</button><button class="unit-button" type="button" data-unit="networking" data-layer="delivery">Networking &amp; Engagement</button></div>
+                <div class="branch-group"><span class="branch-group__label">Education branch</span><button class="unit-button" type="button" data-unit="sig-steering" data-layer="community">SIG Steering Group</button><button class="unit-button" type="button" data-unit="sigs" data-layer="community">Four Special Interest Groups</button></div>
+                <div class="branch-group"><span class="branch-group__label">Membership branch</span><button class="unit-button" type="button" data-unit="recruitment" data-layer="delivery">Recruitment &amp; Retention</button></div>
+                <div class="branch-group"><span class="branch-group__label">Insight and partner branch</span><button class="unit-button" type="button" data-unit="c-suite" data-layer="advisory">C-Suite Leadership Council</button><button class="unit-button" type="button" data-unit="partner-advisory" data-layer="advisory">Business Partner Advisory Group</button></div>
+              </div>
+              <div class="retire-line"><strong>Retire:</strong> Extended Committee, Volunteer Directors, and Council of Luminaries.</div>
+            </div>
+            <div class="legend" aria-label="Structure legend"><span><i></i> Governs</span><span><i class="legend--white"></i> Delivers</span><span><i class="legend--cyan"></i> Community or advice</span><span><i class="legend--dash"></i> Board decision</span></div>
+          </div>
+          <aside class="detail-panel" id="unitDetail" aria-live="polite">
+            <span class="detail-panel__layer" id="unitLayer">Governance</span>
+            <h3 id="unitTitle">Board of Directors</h3>
+            <p class="detail-panel__purpose" id="unitPurpose">Sets strategy, approves resources, protects the mission, and holds the operating model accountable.</p>
+            <div class="detail-section"><h4>Owns</h4><p id="unitOwns">Strategy, budget, bylaws, risk, appointments, charters, and material exceptions.</p></div>
+            <div class="detail-section"><h4>Does not own</h4><p id="unitNotOwn">Routine delivery, meeting logistics, ordinary content choices, or day-to-day task management.</p></div>
+            <div class="detail-grid">
+              <div class="detail-section"><h4>Cadence</h4><p id="unitCadence">Quarterly, with focused decisions between meetings only when required.</p></div>
+              <div class="detail-section"><h4>Proof</h4><p id="unitProof">Decisions close on time, groups stay within charter, and the leadership bench grows.</p></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="participation" data-nav-section>
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">03 · Participation</span><h2>Every person enters through a clear lane.</h2></div>
+          <div><p>A person may occupy more than one lane. The agreement changes when the lane changes.</p><span class="source-tag source-tag--dark">Value exchange</span></div>
+        </div>
+        <div class="participation-layout">
+          <div class="vertical-tabs" role="tablist" aria-label="Participation lanes">
+            <button class="tab-button active" type="button" role="tab" aria-selected="true" data-lane="member">Member</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-lane="volunteer">Volunteer</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-lane="partner">Partner</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-lane="sponsor">Sponsor</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-lane="c-suite">C-Suite Council</button>
+          </div>
+          <div class="exchange-panel" id="exchangePanel" role="tabpanel" aria-live="polite">
+            <div class="exchange-panel__header"><div><span class="eyebrow" id="laneLabel">Participation lane</span><h3 id="laneTitle">Member</h3></div><p id="lanePurpose">The core relationship. Members learn, connect, share needs, and use the community.</p></div>
+            <div class="exchange-grid">
+              <div class="exchange-block"><h4>LVN gives</h4><p id="laneGives">Practical content, trusted peers, meaningful connection, and visible ways to contribute.</p></div>
+              <div class="exchange-block"><h4>Participant gives</h4><p id="laneGets">Dues, time, participation, and useful signal about real work.</p></div>
+              <div class="exchange-block"><h4>Proof it works</h4><p id="laneProof">Activation, retention, useful connections, repeat attendance, and content use.</p></div>
+            </div>
+            <div class="exchange-footer">
+              <div class="exchange-note"><strong>Entry path</strong><br><span id="laneEntry">Membership, orientation, core-discipline community, and relevant programming.</span></div>
+              <div class="exchange-note"><strong>Guardrail</strong><br><span id="laneGuardrail">Membership cannot be a passive mailing-list relationship. LVN must create repeated reasons to participate.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="work" data-nav-section>
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">04 · How work moves</span><h2>One path from signal to proof.</h2></div>
+          <div><p>Good ideas should not become invisible staff work or open-ended volunteer obligations.</p><span class="source-tag source-tag--dark">Recommended operating method</span></div>
+        </div>
+        <div class="workflow" aria-label="LVN work intake process">
+          <article class="workflow-step"><span class="workflow-step__number">01</span><h3>Signal</h3><p>A member need, SIG insight, Council issue, partner idea, or sponsor opportunity.</p></article>
+          <article class="workflow-step"><span class="workflow-step__number">02</span><h3>Brief</h3><p>Problem, audience, outcome, owner, effort, cost, and measure.</p></article>
+          <article class="workflow-step"><span class="workflow-step__number">03</span><h3>Triage</h3><p>Staff tests strategic fit, capacity, conflicts, and dependencies.</p></article>
+          <article class="workflow-step"><span class="workflow-step__number">04</span><h3>Assign</h3><p>A committee or staff owner receives the work and decision rights.</p></article>
+          <article class="workflow-step"><span class="workflow-step__number">05</span><h3>Deliver</h3><p>A small team executes against a visible milestone.</p></article>
+          <article class="workflow-step"><span class="workflow-step__number">06</span><h3>Prove</h3><p>Measure use and quality. Renew, adapt, or stop.</p></article>
+        </div>
+        <div class="cadence-layout">
+          <div>
+            <span class="eyebrow">Operating cadence</span>
+            <h3>Click a rhythm to see the meeting contract.</h3>
+            <div class="cadence-tabs" role="tablist" aria-label="Operating cadence">
+              <button class="tab-button active" type="button" role="tab" aria-selected="true" data-cadence="weekly">Weekly</button>
+              <button class="tab-button" type="button" role="tab" aria-selected="false" data-cadence="committee">Monthly committees</button>
+              <button class="tab-button" type="button" role="tab" aria-selected="false" data-cadence="sig">Monthly SIGs</button>
+              <button class="tab-button" type="button" role="tab" aria-selected="false" data-cadence="board">Quarterly Board</button>
+              <button class="tab-button" type="button" role="tab" aria-selected="false" data-cadence="annual">Annual reset</button>
+            </div>
+          </div>
+          <div class="cadence-panel" id="cadencePanel" role="tabpanel" aria-live="polite">
+            <span class="cadence-panel__meta" id="cadenceMeta">Weekly · Staff / operations</span>
+            <h3 id="cadenceTitle">Portfolio triage</h3>
+            <p id="cadencePurpose">Keep commitments, capacity, dependencies, and risks visible before they reach volunteer groups or the Board.</p>
+            <div class="cadence-panel__grid"><div><h4>Inputs</h4><p id="cadenceInputs">New briefs, action register, capacity view, risks, and deadlines.</p></div><div><h4>Outputs</h4><p id="cadenceOutputs">Assignments, escalations, updated dates, and a clean operating view.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--light" id="portfolio" data-nav-section>
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">05 · Delivery portfolio</span><h2>Committees own outcomes. SIGs create the year-round engine.</h2></div>
+          <div><p>Groups are defined by what they produce and how the Board knows the work mattered.</p><span class="source-tag">Restructuring + recommendation</span></div>
+        </div>
+        <div class="portfolio-grid">
+          <article class="portfolio-item"><span class="portfolio-item__type">Standing committee</span><h3>Conference</h3><p>Own the integrated LVNx plan, programming, networking, logistics, and attendee experience.</p><p class="portfolio-item__proof">Proof: attendance, engagement, participant feedback, and delivery against plan.</p></article>
+          <article class="portfolio-item"><span class="portfolio-item__type">Standing committee</span><h3>Education</h3><p>Own the year-round learning portfolio and enable the SIG content engine.</p><p class="portfolio-item__proof">Proof: useful output cadence, reach, reuse, and quality.</p></article>
+          <article class="portfolio-item"><span class="portfolio-item__type">Standing committee</span><h3>Membership</h3><p>Own acquisition, onboarding, activation, retention, and the volunteer entry path.</p><p class="portfolio-item__proof">Proof: growth, activation, retention, and a healthier leadership pipeline.</p></article>
+          <article class="portfolio-item"><span class="portfolio-item__type">Standing committee</span><h3>Sponsorship &amp; Partnerships</h3><p>Own the relationship portfolio, packages, guardrails, fulfillment, and renewal.</p><p class="portfolio-item__proof">Proof: revenue, benefit delivery, partner results, and member trust.</p></article>
+          <article class="portfolio-item"><span class="portfolio-item__type">Standing committee</span><h3>Finance</h3><p>Own budget oversight, forecast, reserves, liquidity, policies, and financial reporting.</p><p class="portfolio-item__proof">Proof: timely reports, controlled variance, liquidity, and sustainable commitments.</p></article>
+          <article class="portfolio-item"><span class="portfolio-item__type">Board decision</span><h3>WIN</h3><p>Continue the mission of advancing connection and opportunity for women. Decide whether WIN is a committee, SIG, or program.</p><p class="portfolio-item__proof">Proof: clear placement, named owner, meaningful participation, and distinct outputs.</p></article>
+        </div>
+        <div class="sig-band">
+          <div class="sig-band__header"><div><span class="eyebrow">Four proposed SIGs</span><h3>A common contract. Different subject matter.</h3></div><p>Each SIG has a volunteer team, defined leadership, a monthly rhythm, and a small output floor. Content Lead connects to Education or Programming. Community Lead connects to Networking &amp; Engagement.</p></div>
+          <div class="sig-grid">
+            <article class="sig-item"><h3>AI &amp; Innovation</h3><p>AI, technology, automation, data, adoption, and responsible governance.</p></article>
+            <article class="sig-item"><h3>Legal Project Management</h3><p>Planning, matter delivery, project methods, tools, and team leadership.</p></article>
+            <article class="sig-item"><h3>Practice Management</h3><p>Operations, resources, workflow, governance, talent, and service delivery.</p></article>
+            <article class="sig-item"><h3>Pricing</h3><p>Pricing, profitability, AFAs, budgeting, analytics, and client value.</p></article>
+          </div>
+          <div class="sig-output" aria-label="Proposed SIG output floor"><div>1 member learning session / quarter</div><div>1 reusable artifact / quarter</div><div>1 member-signal brief / half</div><div>LVNx programming inputs</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--light" id="roadmap" data-nav-section>
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">06 · Implementation</span><h2>Launch only what LVN can support and measure.</h2></div>
+          <div><p>The roadmap moves from Board decisions to recruitment, onboarding, live operations, and evidence.</p><span class="source-tag">Source plan + restructuring</span></div>
+        </div>
+        <div class="roadmap-layout">
+          <div class="roadmap-tabs" role="tablist" aria-label="Implementation roadmap">
+            <button class="tab-button active" type="button" role="tab" aria-selected="true" data-phase="now">Now → August</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-phase="lvnx">LVNx · September</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-phase="october">October</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-phase="launch">November → January</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-phase="2027">2027</button>
+          </div>
+          <div class="roadmap-panel" id="roadmapPanel" role="tabpanel" aria-live="polite">
+            <span class="roadmap-panel__date" id="phaseDate">Now through August 2026</span>
+            <h3 id="phaseTitle">Close the operating-model decisions</h3>
+            <p id="phasePurpose">Agree on the minimum viable structure before recruiting people into roles that may change.</p>
+            <div class="roadmap-actions" id="phaseActions">
+              <div class="roadmap-action"><span class="roadmap-action__check">1</span><span>Approve the target architecture and decision rights.</span></div>
+              <div class="roadmap-action"><span class="roadmap-action__check">2</span><span>Name one staff operating owner.</span></div>
+              <div class="roadmap-action"><span class="roadmap-action__check">3</span><span>Confirm staff capacity, spend ceiling, and launch scope.</span></div>
+              <div class="roadmap-action"><span class="roadmap-action__check">4</span><span>Publish current volunteer needs and role expectations.</span></div>
+            </div>
+            <div class="roadmap-outcome"><strong>Exit condition:</strong> <span id="phaseOutcome">The Board has recorded decisions, named owners, and approved the launch scope.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="decisions" data-nav-section>
+      <div class="container">
+        <div class="decision-summary">
+          <div><span class="eyebrow">07 · Board workbench</span><h2>Close the choices that determine the model.</h2><p style="max-width:760px;color:rgba(255,255,255,.72);">Owner, date, status, baseline, and target fields save in this browser. Export the current work as Markdown when the session ends.</p></div>
+          <div class="decision-actions"><button class="button button--light button--small" id="exportWorkButton" type="button">Export work</button><button class="button button--ghost button--small" id="resetWorkButton" type="button">Reset local changes</button><a class="button button--ghost button--small" href="deck.html#slide-24">Open decision slide</a></div>
+        </div>
+        <div class="decision-list">
+          <article class="decision-row"><div class="decision-row__copy"><h3>Approve the target architecture</h3><p>Board, staff, standing groups, substructures, SIGs, and advisory bodies.</p></div><div><span class="field-label">Owner</span><div contenteditable="true" data-edit-key="decision-architecture-owner" data-placeholder="Add owner"></div></div><div><span class="field-label">Decision date</span><div contenteditable="true" data-edit-key="decision-architecture-date" data-placeholder="Add date"></div></div><div class="decision-row__status"><span class="field-label">Status</span><button class="status-toggle" type="button" data-status-key="decision-architecture-status" data-status="Open">Open</button></div></article>
+          <article class="decision-row"><div class="decision-row__copy"><h3>Resolve the advisory bodies</h3><p>Define, merge, or retire the Advisory Board. Confirm the Council boundary.</p></div><div><span class="field-label">Owner</span><div contenteditable="true" data-edit-key="decision-advisory-owner" data-placeholder="Add owner"></div></div><div><span class="field-label">Decision date</span><div contenteditable="true" data-edit-key="decision-advisory-date" data-placeholder="Add date"></div></div><div class="decision-row__status"><span class="field-label">Status</span><button class="status-toggle" type="button" data-status-key="decision-advisory-status" data-status="Open">Open</button></div></article>
+          <article class="decision-row"><div class="decision-row__copy"><h3>Name governance ownership</h3><p>Assign nominations, bylaws, Board succession, and annual charter review.</p></div><div><span class="field-label">Owner</span><div contenteditable="true" data-edit-key="decision-governance-owner" data-placeholder="Add owner"></div></div><div><span class="field-label">Decision date</span><div contenteditable="true" data-edit-key="decision-governance-date" data-placeholder="Add date"></div></div><div class="decision-row__status"><span class="field-label">Status</span><button class="status-toggle" type="button" data-status-key="decision-governance-status" data-status="Open">Open</button></div></article>
+          <article class="decision-row"><div class="decision-row__copy"><h3>Approve SIG terms and liaisons</h3><p>Resolve Chair terms, Steering composition, and two-way Board reporting.</p></div><div><span class="field-label">Owner</span><div contenteditable="true" data-edit-key="decision-sig-owner" data-placeholder="Add owner"></div></div><div><span class="field-label">Decision date</span><div contenteditable="true" data-edit-key="decision-sig-date" data-placeholder="Add date"></div></div><div class="decision-row__status"><span class="field-label">Status</span><button class="status-toggle" type="button" data-status-key="decision-sig-status" data-status="Open">Open</button></div></article>
+          <article class="decision-row"><div class="decision-row__copy"><h3>Confirm capacity and spend</h3><p>Name the staff owner, monthly capacity, launch scope, and spend ceiling.</p></div><div><span class="field-label">Owner</span><div contenteditable="true" data-edit-key="decision-capacity-owner" data-placeholder="Add owner"></div></div><div><span class="field-label">Decision date</span><div contenteditable="true" data-edit-key="decision-capacity-date" data-placeholder="Add date"></div></div><div class="decision-row__status"><span class="field-label">Status</span><button class="status-toggle" type="button" data-status-key="decision-capacity-status" data-status="Open">Open</button></div></article>
+          <article class="decision-row"><div class="decision-row__copy"><h3>Approve the value exchange and proof</h3><p>Set participation promises, sponsor guardrails, and the operating scorecard.</p></div><div><span class="field-label">Owner</span><div contenteditable="true" data-edit-key="decision-value-owner" data-placeholder="Add owner"></div></div><div><span class="field-label">Decision date</span><div contenteditable="true" data-edit-key="decision-value-date" data-placeholder="Add date"></div></div><div class="decision-row__status"><span class="field-label">Status</span><button class="status-toggle" type="button" data-status-key="decision-value-status" data-status="Open">Open</button></div></article>
+        </div>
+
+        <div class="scorecard-wrap">
+          <span class="eyebrow">Operating scorecard</span>
+          <h3>Measure whether the structure is earning its keep.</h3>
+          <table class="scorecard">
+            <thead><tr><th>Outcome</th><th>Measure</th><th>Baseline</th><th>2027 target</th><th>Owner</th><th>Review</th></tr></thead>
+            <tbody>
+              <tr><td>Member activation</td><td>% with two meaningful actions per quarter</td><td><div contenteditable="true" data-edit-key="score-member-baseline" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-member-target" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-member-owner" data-placeholder="Owner"></div></td><td>Quarterly</td></tr>
+              <tr><td>Content cadence</td><td>Member-facing outputs per month</td><td><div contenteditable="true" data-edit-key="score-content-baseline" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-content-target" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-content-owner" data-placeholder="Owner"></div></td><td>Monthly</td></tr>
+              <tr><td>Volunteer health</td><td>Roles filled and 90-day retention</td><td><div contenteditable="true" data-edit-key="score-volunteer-baseline" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-volunteer-target" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-volunteer-owner" data-placeholder="Owner"></div></td><td>Monthly</td></tr>
+              <tr><td>Leadership bench</td><td>Ready-now successors for key roles</td><td><div contenteditable="true" data-edit-key="score-bench-baseline" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-bench-target" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-bench-owner" data-placeholder="Owner"></div></td><td>Quarterly</td></tr>
+              <tr><td>Partner and sponsor value</td><td>Fulfillment, renewal, and member trust</td><td><div contenteditable="true" data-edit-key="score-partner-baseline" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-partner-target" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-partner-owner" data-placeholder="Owner"></div></td><td>Quarterly</td></tr>
+              <tr><td>Financial discipline</td><td>Spend and staff time against approved plan</td><td><div contenteditable="true" data-edit-key="score-finance-baseline" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-finance-target" data-placeholder="Set"></div></td><td><div contenteditable="true" data-edit-key="score-finance-owner" data-placeholder="Owner"></div></td><td>Monthly</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="conflicts" aria-label="Open source conflicts">
+          <div class="conflict"><h4>Advisory Board</h4><p>The source chart marks it with a question. Its distinct purpose is not defined.</p></div>
+          <div class="conflict"><h4>Programming</h4><p>It appears as both a standing committee and a Conference subcommittee.</p></div>
+          <div class="conflict"><h4>SIG leadership terms</h4><p>The source alternates between 1–2 years and a 2-year Chair term.</p></div>
+          <div class="conflict"><h4>Board liaison</h4><p>The source alternates between a Board liaison and a selected SIG Chair liaison.</p></div>
+          <div class="conflict"><h4>Governance ownership</h4><p>The strategy calls for a framework, but no proposed body clearly owns it.</p></div>
+          <div class="conflict"><h4>WIN placement</h4><p>The mission is clear. The best structural home still needs a decision.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><img src="assets/logos/lvnx-wordmark-white.png" alt="LVNx"><p>This is a working model for Legal Value Network governance and participation. Source-derived items, recommendations, and Board decisions are deliberately kept distinct.</p><a class="button button--ghost button--small" href="deck.html">Open presentation view</a></div>
+      <div class="footer-test"><h3>The design test</h3><ul><li>Why am I here?</li><li>What do I owe?</li><li>What do I get?</li><li>How do we know it worked?</li></ul></div>
+    </div>
+    <div class="footer-bottom">Local working artifact · Not a published LVN policy or approved governance record</div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+
+  <script>
+    (() => {
+      const STORAGE_PREFIX = "lvn-web-operating-model:v1:";
+
+      const unitData = {
+        board: { layer: "Governance", title: "Board of Directors", purpose: "Sets strategy, approves resources, protects the mission, and holds the operating model accountable.", owns: "Strategy, budget, bylaws, risk, appointments, charters, and material exceptions.", notOwn: "Routine delivery, meeting logistics, ordinary content choices, or day-to-day task management.", cadence: "Quarterly, with focused decisions between meetings only when required.", proof: "Decisions close on time, groups stay within charter, and the leadership bench grows." },
+        staff: { layer: "Operations", title: "Staff / Operations", purpose: "Turns Board direction into one coordinated portfolio and keeps volunteer work runnable.", owns: "Intake, prioritization, calendar, communications, vendors, data, meeting enablement, and the monthly operating view.", notOwn: "Unilateral strategy changes, unapproved material spend, or governance decisions.", cadence: "Weekly triage and monthly reporting.", proof: "Clear ownership, fewer dropped handoffs, controlled capacity, and timely delivery." },
+        "advisory-board": { layer: "Board decision", title: "Advisory Board", purpose: "The source materials do not define a purpose that is distinct from the Board, C-Suite Council, or partner advisory group.", owns: "To be decided. A retained body needs a written charter, selection rule, output, and renewal test.", notOwn: "Governance authority unless formally granted through the bylaws.", cadence: "To be decided.", proof: "Retain only if it produces unique, repeatable value that another body cannot." },
+        conference: { layer: "Delivery", title: "Conference Committee", purpose: "Owns the integrated LVNx plan and attendee experience.", owns: "Conference plan, logistics oversight, participant goals, speaker direction, subcommittee coordination, and post-event review.", notOwn: "Year-round education outside the approved conference portfolio or sponsor promises outside approved packages.", cadence: "Monthly, increasing as LVNx approaches.", proof: "Attendance, engagement, participant feedback, and delivery against plan." },
+        education: { layer: "Delivery", title: "Education Committee", purpose: "Owns the year-round learning portfolio and enables SIG content production.", owns: "Webinars, publications, learning quality, content calendar, and SIG enablement.", notOwn: "Independent conference commitments without the Conference Committee or editorial concessions to sponsors.", cadence: "Monthly.", proof: "Useful output cadence, reach, reuse, quality, and member feedback." },
+        finance: { layer: "Delivery", title: "Finance Committee", purpose: "Keeps LVN financially disciplined and sustainable.", owns: "Budget oversight, forecast, reserves, liquidity, insurance, financial policy, and reporting recommendations.", notOwn: "Unapproved program expansion or operating execution owned by staff.", cadence: "Monthly review with formal Board reporting each quarter.", proof: "Controlled variance, timely reports, adequate liquidity, and clear investment choices." },
+        membership: { layer: "Delivery", title: "Membership Committee", purpose: "Builds and maintains a healthy, active member community.", owns: "Acquisition, onboarding, activation, retention, member categories, benefits, and the volunteer entry path.", notOwn: "Programming delivery without coordination or sponsor benefits.", cadence: "Monthly.", proof: "Growth, activation, retention, and movement into meaningful participation." },
+        sponsorship: { layer: "Delivery", title: "Sponsorship & Partnerships Committee", purpose: "Builds external relationships that fund or extend LVN work without compromising member trust.", owns: "Prospect portfolio, relationship lanes, packages, guardrails, fulfillment, partner briefs, and renewal.", notOwn: "Editorial decisions, member-data access without consent, or unapproved governance influence.", cadence: "Monthly with active pipeline review.", proof: "Revenue, benefit fulfillment, shared outcomes, renewal, and member trust." },
+        win: { layer: "Board decision", title: "WIN", purpose: "Advances connection, visibility, and opportunity for women in the legal industry.", owns: "The mission is clear. Structural ownership is not.", notOwn: "A permanent committee seat without a distinct charter and measurable portfolio.", cadence: "Depends on placement as a committee, SIG, or program.", proof: "A clear home, named owner, meaningful participation, and distinct outputs." },
+        programming: { layer: "Delivery", title: "Programming", purpose: "Develops and vets content for LVNx within the Conference portfolio.", owns: "Session pipeline, content standards, market relevance, and recommendations to Conference leadership.", notOwn: "Year-round education strategy unless jointly assigned with Education.", cadence: "Monthly, then more frequently near program deadlines.", proof: "Cohesive program, useful sessions, speaker readiness, and participant feedback." },
+        networking: { layer: "Delivery", title: "Networking & Engagement", purpose: "Designs meaningful connection and participation around LVNx and related experiences.", owns: "Interaction formats, attendee engagement, community activation, and aligned promotion support.", notOwn: "Membership policy or the full marketing plan.", cadence: "Monthly, then more frequently near the event.", proof: "Participation, quality connections, registration support, and attendee feedback." },
+        "sig-steering": { layer: "Community", title: "SIG Steering Group", purpose: "Connects the four SIGs to Education, Conference, staff, and the Board.", owns: "Shared standards, calendar coordination, cross-SIG dependencies, leadership health, and reporting.", notOwn: "Replacing SIG subject-matter leadership or creating a second Board.", cadence: "Monthly.", proof: "Consistent outputs, resolved dependencies, healthy volunteer teams, and clear escalation." },
+        sigs: { layer: "Community", title: "Four Special Interest Groups", purpose: "Create year-round communities of practice for AI & Innovation, Legal Project Management, Practice Management, and Pricing.", owns: "Peer discussion, subject signal, content proposals, reusable resources, and conference inputs.", notOwn: "Governance, sponsor commitments, policy, or unapproved public positions.", cadence: "Monthly community meeting with a shared quarterly output floor.", proof: "Participation, useful outputs, member signal, and prepared volunteer leaders." },
+        recruitment: { layer: "Delivery", title: "Recruitment & Retention", purpose: "Turns membership strategy into targeted outreach, onboarding, activation, and renewal work.", owns: "Campaign execution, prospect segments, onboarding follow-up, retention signals, and role matching.", notOwn: "Changing membership categories or benefits without committee and Board approval.", cadence: "Monthly.", proof: "Qualified growth, onboarding completion, activation, and renewal." },
+        "c-suite": { layer: "Advisory", title: "C-Suite Leadership Council", purpose: "Provides a confidential executive forum and a structured signal loop into LVN priorities.", owns: "Peer exchange, executive insight, cross-sector relationships, and an annual insight memo.", notOwn: "Governance authority, binding decisions, editorial control, or automatic Board access.", cadence: "Four curated touchpoints per year plus an annual review.", proof: "Participation, quality of insight, recommendations considered, and continued executive interest." },
+        "partner-advisory": { layer: "Advisory", title: "Business Partner Advisory Group", purpose: "Gives aligned solution providers a structured way to share market signal and improve the partner experience.", owns: "Partner feedback, market observations, fulfillment feedback, and scoped collaboration ideas.", notOwn: "Editorial control, member-data rights, governance, or sponsor-package exceptions.", cadence: "Quarterly or tied to sponsor planning cycles.", proof: "Better partner outcomes, cleaner fulfillment, useful signal, and renewal." }
+      };
+
+      const laneData = {
+        member: { title: "Member", purpose: "The core relationship. Members learn, connect, share needs, and use the community.", gives: "Practical content, trusted peers, meaningful connection, and visible ways to contribute.", gets: "Dues, time, participation, and useful signal about real work.", proof: "Activation, retention, useful connections, repeat attendance, and content use.", entry: "Membership, orientation, core-discipline community, and relevant programming.", guardrail: "Membership cannot be a passive mailing-list relationship. LVN must create repeated reasons to participate." },
+        volunteer: { title: "Volunteer", purpose: "A scoped service relationship that creates output and develops future leaders.", gives: "A defined role, support, leadership practice, recognition, and a path to larger responsibility.", gets: "Time, reliable delivery, collaboration, documentation, and succession support.", proof: "Roles filled, milestones completed, volunteer satisfaction, retention, and advancement.", entry: "Year-round interest form, ranked preferences, fit conversation, charter, and first 90-day output.", guardrail: "No title without an output. No open-ended role without an exit or rotation point." },
+        partner: { title: "Partner", purpose: "An organization that extends reach, expertise, capability, or a shared platform without buying benefits.", gives: "A credible joint platform, community connection, attribution, and a defined shared outcome.", gets: "Reach, expertise, data, facilitation, capability, or co-investment.", proof: "A completed joint output, qualified reach, participant value, and repeat collaboration.", entry: "A one-page partner brief covering audience, contribution, outcome, owner, effort, and measure.", guardrail: "Partnership is not a softer word for sponsorship. Money and benefits move through the sponsor lane." },
+        sponsor: { title: "Sponsor", purpose: "A commercial support relationship with written benefits, fulfillment, and firm boundaries.", gives: "Visibility, access within policy, benefit fulfillment, and a clear connection to funded work.", gets: "Funding, expertise, promotion, and timely fulfillment inputs.", proof: "Benefit delivery, program outcomes, member trust, satisfaction, and renewal.", entry: "Approved package, signed agreement, fulfillment map, owners, dates, and disclosure plan.", guardrail: "Funding does not buy editorial control, member data, governance rights, or undisclosed influence." },
+        "c-suite": { title: "C-Suite Council member", purpose: "An invitation-only executive peer relationship that brings strategic signal to LVN.", gives: "A confidential forum, curated peers, useful briefings, and voice into priorities without governance authority.", gets: "Candor, time, executive insight, cross-sector perspective, and relationships.", proof: "Participation, quality recommendations, actions considered, and annual renewal.", entry: "Published selection criteria, invitation, confidentiality norms, orientation, and annual renewal.", guardrail: "The Council advises. It does not govern, approve content, or bypass normal Board appointment processes." }
+      };
+
+      const cadenceData = {
+        weekly: { meta: "Weekly · Staff / operations", title: "Portfolio triage", purpose: "Keep commitments, capacity, dependencies, and risks visible before they reach volunteer groups or the Board.", inputs: "New briefs, action register, capacity view, risks, and deadlines.", outputs: "Assignments, escalations, updated dates, and a clean operating view." },
+        committee: { meta: "Monthly · Standing committees", title: "Charter and delivery review", purpose: "Move owned outcomes forward and surface only the decisions or constraints that require help.", inputs: "Charter milestones, workstream status, budget, volunteer capacity, member signal, and blockers.", outputs: "Decisions, named actions, changed dates, staff requests, and dashboard updates." },
+        sig: { meta: "Monthly · SIGs and Steering", title: "Community and content engine", purpose: "Turn member signal into peer connection, useful content, and prepared volunteer leaders.", inputs: "Member needs, content pipeline, participation, leadership health, and conference cycle.", outputs: "Next experience, reusable artifact, insight brief, handoffs, and volunteer actions." },
+        board: { meta: "Quarterly · Board of Directors", title: "Strategy and exception review", purpose: "Spend Board time on direction, resources, risk, appointments, and decisions that cannot sit lower in the model.", inputs: "Operating dashboard, decision briefs, budget view, risks, charter exceptions, and leadership pipeline.", outputs: "Recorded decisions, boundaries, approvals, appointments, and strategic adjustments." },
+        annual: { meta: "Annual · Board + staff", title: "Portfolio and charter reset", purpose: "Prevent committees, programs, and roles from becoming permanent without evidence.", inputs: "Outcome data, member feedback, financial performance, volunteer health, partner results, and strategic priorities.", outputs: "Renew, merge, pause, redesign, or close each body and major program." }
+      };
+
+      const roadmapData = {
+        now: { date: "Now through August 2026", title: "Close the operating-model decisions", purpose: "Agree on the minimum viable structure before recruiting people into roles that may change.", actions: ["Approve the target architecture and decision rights.", "Name one staff operating owner.", "Confirm staff capacity, spend ceiling, and launch scope.", "Publish current volunteer needs and role expectations."], outcome: "The Board has recorded decisions, named owners, and approved the launch scope." },
+        lvnx: { date: "LVNx · September 16–18, 2026", title: "Recruit and listen in one place", purpose: "Use the flagship gathering to explain the model, recruit into clear lanes, and gather direct member signal.", actions: ["Recruit members for the four SIGs.", "Introduce the C-Suite Leadership Council concept.", "Run structured member listening sessions.", "Brief sponsors and partners on the new lanes and guardrails."], outcome: "LVN leaves LVNx with qualified interest, documented member needs, and no ambiguous volunteer promises." },
+        october: { date: "October 2026", title: "Select leaders and finish the operating kit", purpose: "Convert interest into accountable teams with the same basic tools and expectations.", actions: ["Select SIG and committee leaders.", "Finalize charters, roles, terms, and liaison rules.", "Run volunteer onboarding.", "Publish the operating calendar and first output dates."], outcome: "Every launch group has leaders, a charter, a calendar, and a first visible deliverable." },
+        launch: { date: "November 2026 through January 2027", title: "Start the rhythm and produce evidence", purpose: "Begin the monthly cadence, complete first outputs, and establish honest baselines.", actions: ["Begin volunteer terms and monthly meetings.", "Issue the first monthly operating packet.", "Deliver the first SIG and committee outputs.", "Baseline participation, content, volunteer, partner, and financial measures."], outcome: "The new model is operating, measured, and generating real work rather than organizational theater." },
+        "2027": { date: "2027", title: "Scale what proves useful", purpose: "Use evidence from the core model to expand audiences, partnerships, and leadership without losing discipline.", actions: ["Run Innovation & AI and Law Firm Growth audience pilots.", "Develop aligned association and knowledge partnerships.", "Recruit expanded-audience C-suite leaders.", "Review and renew every charter, role, and program."], outcome: "LVN expands from a stable core with proof of member value and a visible leadership bench." }
+      };
+
+      const menuButton = document.getElementById("menuButton");
+      const siteNav = document.getElementById("siteNav");
+      const backToTop = document.getElementById("backToTop");
+      const scrollProgress = document.getElementById("scrollProgress");
+
+      function closeNav() {
+        siteNav.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.textContent = "☰";
+        document.body.classList.remove("nav-open");
+      }
+
+      menuButton.addEventListener("click", () => {
+        const open = !siteNav.classList.contains("open");
+        siteNav.classList.toggle("open", open);
+        menuButton.setAttribute("aria-expanded", String(open));
+        menuButton.textContent = open ? "×" : "☰";
+        document.body.classList.toggle("nav-open", open);
+      });
+
+      document.querySelectorAll(".nav__link").forEach((link) => link.addEventListener("click", closeNav));
+
+      function updateScrollUI() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = max > 0 ? window.scrollY / max : 0;
+        scrollProgress.style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+        backToTop.classList.toggle("visible", window.scrollY > 700);
+      }
+
+      window.addEventListener("scroll", updateScrollUI, { passive: true });
+      updateScrollUI();
+      backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+      const navLinks = new Map([...document.querySelectorAll(".nav__link")].map((link) => [link.getAttribute("href").slice(1), link]));
+      const navObserver = new IntersectionObserver((entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        navLinks.forEach((link, id) => link.classList.toggle("active", id === visible.target.id));
+      }, { rootMargin: "-20% 0px -60%", threshold: [0.05, 0.2, 0.5] });
+      document.querySelectorAll("[data-nav-section]").forEach((section) => navObserver.observe(section));
+
+      function setUnit(unitKey) {
+        const data = unitData[unitKey];
+        if (!data) return;
+        document.getElementById("unitLayer").textContent = data.layer;
+        document.getElementById("unitTitle").textContent = data.title;
+        document.getElementById("unitPurpose").textContent = data.purpose;
+        document.getElementById("unitOwns").textContent = data.owns;
+        document.getElementById("unitNotOwn").textContent = data.notOwn;
+        document.getElementById("unitCadence").textContent = data.cadence;
+        document.getElementById("unitProof").textContent = data.proof;
+        document.querySelectorAll("[data-unit]").forEach((button) => button.classList.toggle("selected", button.dataset.unit === unitKey));
+      }
+
+      document.querySelectorAll("[data-unit]").forEach((button) => button.addEventListener("click", () => setUnit(button.dataset.unit)));
+
+      document.querySelectorAll("[data-filter]").forEach((button) => button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+        document.querySelectorAll("[data-filter]").forEach((candidate) => candidate.classList.toggle("active", candidate === button));
+        document.querySelectorAll("[data-unit]").forEach((unit) => unit.classList.toggle("is-dimmed", filter !== "all" && unit.dataset.layer !== filter));
+      }));
+
+      function setLane(key) {
+        const data = laneData[key];
+        if (!data) return;
+        document.getElementById("laneTitle").textContent = data.title;
+        document.getElementById("lanePurpose").textContent = data.purpose;
+        document.getElementById("laneGives").textContent = data.gives;
+        document.getElementById("laneGets").textContent = data.gets;
+        document.getElementById("laneProof").textContent = data.proof;
+        document.getElementById("laneEntry").textContent = data.entry;
+        document.getElementById("laneGuardrail").textContent = data.guardrail;
+        document.querySelectorAll("[data-lane]").forEach((button) => {
+          const active = button.dataset.lane === key;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-selected", String(active));
+        });
+      }
+      document.querySelectorAll("[data-lane]").forEach((button) => button.addEventListener("click", () => setLane(button.dataset.lane)));
+
+      function setCadence(key) {
+        const data = cadenceData[key];
+        if (!data) return;
+        document.getElementById("cadenceMeta").textContent = data.meta;
+        document.getElementById("cadenceTitle").textContent = data.title;
+        document.getElementById("cadencePurpose").textContent = data.purpose;
+        document.getElementById("cadenceInputs").textContent = data.inputs;
+        document.getElementById("cadenceOutputs").textContent = data.outputs;
+        document.querySelectorAll("[data-cadence]").forEach((button) => {
+          const active = button.dataset.cadence === key;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-selected", String(active));
+        });
+      }
+      document.querySelectorAll("[data-cadence]").forEach((button) => button.addEventListener("click", () => setCadence(button.dataset.cadence)));
+
+      function setPhase(key) {
+        const data = roadmapData[key];
+        if (!data) return;
+        document.getElementById("phaseDate").textContent = data.date;
+        document.getElementById("phaseTitle").textContent = data.title;
+        document.getElementById("phasePurpose").textContent = data.purpose;
+        document.getElementById("phaseOutcome").textContent = data.outcome;
+        document.getElementById("phaseActions").innerHTML = data.actions.map((action, index) => `<div class="roadmap-action"><span class="roadmap-action__check">${index + 1}</span><span>${action}</span></div>`).join("");
+        document.querySelectorAll("[data-phase]").forEach((button) => {
+          const active = button.dataset.phase === key;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-selected", String(active));
+        });
+      }
+      document.querySelectorAll("[data-phase]").forEach((button) => button.addEventListener("click", () => setPhase(button.dataset.phase)));
+
+      function initializeEditableFields() {
+        document.querySelectorAll("[data-edit-key]").forEach((field) => {
+          const saved = localStorage.getItem(STORAGE_PREFIX + field.dataset.editKey);
+          if (saved !== null) field.textContent = saved;
+          field.addEventListener("input", () => localStorage.setItem(STORAGE_PREFIX + field.dataset.editKey, field.textContent.trim()));
+        });
+      }
+
+      function initializeStatuses() {
+        const states = ["Open", "Discussing", "Decided"];
+        document.querySelectorAll("[data-status-key]").forEach((button) => {
+          const saved = localStorage.getItem(STORAGE_PREFIX + button.dataset.statusKey);
+          if (states.includes(saved)) { button.dataset.status = saved; button.textContent = saved; }
+          button.addEventListener("click", () => {
+            const next = states[(states.indexOf(button.dataset.status) + 1) % states.length];
+            button.dataset.status = next;
+            button.textContent = next;
+            localStorage.setItem(STORAGE_PREFIX + button.dataset.statusKey, next);
+          });
+        });
+      }
+
+      function exportWork() {
+        const decisionRows = [...document.querySelectorAll(".decision-row")].map((row) => ({
+          title: row.querySelector("h3")?.textContent.trim(),
+          owner: row.querySelector('[data-edit-key$="-owner"]')?.textContent.trim() || "[blank]",
+          date: row.querySelector('[data-edit-key$="-date"]')?.textContent.trim() || "[blank]",
+          status: row.querySelector("[data-status-key]")?.dataset.status || "Open"
+        }));
+        const scoreRows = [...document.querySelectorAll(".scorecard tbody tr")].map((row) => ({
+          outcome: row.cells[0].textContent.trim(),
+          measure: row.cells[1].textContent.trim(),
+          baseline: row.querySelector('[data-edit-key$="-baseline"]')?.textContent.trim() || "[blank]",
+          target: row.querySelector('[data-edit-key$="-target"]')?.textContent.trim() || "[blank]",
+          owner: row.querySelector('[data-edit-key$="-owner"]')?.textContent.trim() || "[blank]"
+        }));
+        const lines = ["# LVN Operating Model: Board Work", "", `Exported: ${new Date().toLocaleString()}`, "", "## Decisions", "", ...decisionRows.map((row) => `- **${row.title}** | ${row.status} | Owner: ${row.owner} | Date: ${row.date}`), "", "## Scorecard", "", ...scoreRows.map((row) => `- **${row.outcome}** | ${row.measure} | Baseline: ${row.baseline} | Target: ${row.target} | Owner: ${row.owner}`), ""];
+        const blob = new Blob([lines.join("\n")], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "lvn-operating-model-board-work.md";
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      document.getElementById("exportWorkButton").addEventListener("click", exportWork);
+      document.getElementById("resetWorkButton").addEventListener("click", () => {
+        if (!window.confirm("Clear all locally saved Board work for this page?")) return;
+        Object.keys(localStorage).filter((key) => key.startsWith(STORAGE_PREFIX)).forEach((key) => localStorage.removeItem(key));
+        window.location.reload();
+      });
+
+      initializeEditableFields();
+      initializeStatuses();
+    })();
+  </script>
+</body>
+</html>

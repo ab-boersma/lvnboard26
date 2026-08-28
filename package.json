@@ -1,0 +1,15 @@
+{
+  "name": "lvnboard26",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive Legal Value Network 2026 board strategy and operating model.",
+  "scripts": {
+    "test": "node tests/validate.mjs",
+    "dev": "wrangler dev",
+    "deploy:dry": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.127.1"
+  }
+}

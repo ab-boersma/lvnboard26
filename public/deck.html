@@ -1,0 +1,2148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LVN strategy and operating model working deck, consolidated from the March 2026 Board Vision and Restructuring Proposal.">
+  <title>LVN Strategy &amp; Operating Model</title>
+  <link rel="icon" href="assets/logos/lvnx-wordmark-purple.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;family=Montserrat:wght@600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lvnx-purple: #290078;
+      --lvnx-deep-purple: #302772;
+      --lvnx-cyan: #2CB1DE;
+      --lvnx-navy: #2D286F;
+      --lvnx-white: #FFFFFF;
+      --lvnx-light: #F2F2F2;
+      --lvnx-ink: #231F20;
+      --lvnx-muted: #5F5B67;
+      --lvnx-line: #CDC9D8;
+      --lvnx-lavender: #E8E2F6;
+      --shell: #101018;
+      --shell-soft: #1C1B29;
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { color-scheme: dark; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--shell);
+      color: var(--lvnx-white);
+      font-family: "Lato", Arial, sans-serif;
+    }
+
+    button,
+    input,
+    select { font: inherit; }
+
+    button { cursor: pointer; }
+
+    a { color: inherit; }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .controls {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 54px;
+      padding: 8px 14px;
+      background: rgba(16, 16, 24, 0.94);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+    }
+
+    .controls__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+      min-width: 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .controls__brand img {
+      width: 78px;
+      height: auto;
+    }
+
+    .control-button {
+      min-height: 36px;
+      padding: 7px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--lvnx-white);
+      font-weight: 700;
+    }
+
+    .control-button:hover,
+    .control-button:focus-visible {
+      border-color: var(--lvnx-cyan);
+      background: rgba(44, 177, 222, 0.14);
+      outline: none;
+    }
+
+    .control-button--icon {
+      width: 38px;
+      padding-inline: 0;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .stage {
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      min-height: 0;
+      padding: 24px;
+    }
+
+    .deck {
+      width: min(100%, 1280px);
+    }
+
+    .slide {
+      container-type: inline-size;
+      position: relative;
+      display: none;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--lvnx-light);
+      color: var(--lvnx-ink);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .slide.active { display: block; }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 20;
+      height: 0.35cqw;
+      background: var(--lvnx-cyan);
+    }
+
+    .slide--dark {
+      background: var(--lvnx-deep-purple);
+      color: var(--lvnx-white);
+    }
+
+    .slide--section::after,
+    .slide--cover::after { display: none; }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 4.8cqw 5.8cqw 4.6cqw;
+    }
+
+    .slide--cover .slide-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 51%;
+      margin-left: 44.8%;
+      padding: 7cqw 2.8cqw 6cqw 0;
+      color: var(--lvnx-white);
+    }
+
+    .slide--section .slide-content {
+      width: 49%;
+      margin-left: 45.8%;
+      padding: 9cqw 2cqw 5cqw 0;
+      color: var(--lvnx-white);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .eyebrow,
+    .metric__value {
+      margin: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+
+    h1 {
+      max-width: 96%;
+      font-size: 4.65cqw;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+    }
+
+    h2 {
+      max-width: 79%;
+      font-size: 3.45cqw;
+      font-weight: 800;
+      letter-spacing: -0.018em;
+      line-height: 1.04;
+    }
+
+    h3 {
+      font-size: 1.75cqw;
+      font-weight: 800;
+      line-height: 1.12;
+    }
+
+    h4 {
+      font-size: 1.38cqw;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    p,
+    li,
+    td,
+    th,
+    .body-copy {
+      font-size: 1.42cqw;
+      line-height: 1.32;
+    }
+
+    p { margin: 0; }
+
+    ul {
+      margin: 0;
+      padding-left: 1.1em;
+    }
+
+    li + li { margin-top: 0.45cqw; }
+
+    strong { font-weight: 900; }
+
+    .eyebrow {
+      margin-bottom: 1.15cqw;
+      color: var(--lvnx-cyan);
+      font-size: 0.94cqw;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .slide--light .eyebrow { color: var(--lvnx-purple); }
+
+    .subtitle {
+      max-width: 88%;
+      margin-top: 1.4cqw;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 1.62cqw;
+      line-height: 1.32;
+    }
+
+    .title-rule {
+      width: 88.3%;
+      height: 1px;
+      margin-top: 1.6cqw;
+      background: currentColor;
+      opacity: 0.42;
+    }
+
+    .slide--dark .title-rule { opacity: 0.72; }
+
+    .top-logo {
+      position: absolute;
+      top: 4.1%;
+      right: 5.7%;
+      z-index: 6;
+      width: 7.4%;
+      min-width: 62px;
+      height: auto;
+    }
+
+    .slide-meta {
+      position: absolute;
+      right: 5.8cqw;
+      bottom: 1.25cqw;
+      z-index: 22;
+      display: flex;
+      align-items: center;
+      gap: 0.65cqw;
+      font-size: 0.78cqw;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .slide-meta__source {
+      padding: 0.35cqw 0.65cqw;
+      border: 1px solid currentColor;
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--lvnx-purple);
+    }
+
+    .slide--dark .slide-meta__source {
+      background: rgba(41, 0, 120, 0.7);
+      color: var(--lvnx-white);
+    }
+
+    .slide-meta__number { opacity: 0.66; }
+
+    .content-start { margin-top: 2.25cqw; }
+
+    .lede {
+      max-width: 90%;
+      font-size: 1.84cqw;
+      line-height: 1.3;
+    }
+
+    .accent { color: var(--lvnx-cyan); }
+    .purple { color: var(--lvnx-purple); }
+    .muted { color: var(--lvnx-muted); }
+
+    .callout {
+      padding: 1.2cqw 1.4cqw;
+      border-left: 0.45cqw solid var(--lvnx-cyan);
+      background: rgba(44, 177, 222, 0.11);
+      font-size: 1.48cqw;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .slide--dark .callout {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .grid-5 {
+      display: grid;
+      gap: 1.35cqw;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+    .panel {
+      padding: 1.4cqw;
+      border-top: 0.38cqw solid var(--lvnx-purple);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .panel--cyan { border-color: var(--lvnx-cyan); }
+    .panel--purple { border-color: var(--lvnx-purple); }
+    .panel--soft { background: rgba(232, 226, 246, 0.82); }
+
+    .slide--dark .panel {
+      border-color: var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .panel p,
+    .panel li { margin-top: 0.62cqw; }
+
+    .panel__label {
+      margin-bottom: 0.6cqw;
+      color: var(--lvnx-purple);
+      font-size: 0.92cqw;
+      font-weight: 900;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .slide--dark .panel__label { color: var(--lvnx-cyan); }
+
+    .numbered {
+      position: relative;
+      min-height: 17.5cqw;
+      padding: 4.1cqw 1.5cqw 1.35cqw;
+      background: var(--lvnx-purple);
+      color: var(--lvnx-white);
+    }
+
+    .numbered__number {
+      position: absolute;
+      top: -0.8cqw;
+      left: -0.6cqw;
+      display: grid;
+      place-items: center;
+      width: 4.3cqw;
+      height: 4.3cqw;
+      background: var(--lvnx-cyan);
+      color: var(--lvnx-white);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 2.1cqw;
+      font-weight: 900;
+    }
+
+    .numbered p { margin-top: 0.9cqw; }
+
+    .chain {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: stretch;
+      gap: 1.55cqw;
+      margin-top: 3.6cqw;
+    }
+
+    .chain__item {
+      position: relative;
+      min-height: 13.8cqw;
+      padding: 1.5cqw 1.25cqw;
+      border-top: 0.42cqw solid var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .chain__item:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 42%;
+      right: -1.48cqw;
+      color: var(--lvnx-cyan);
+      font-size: 1.9cqw;
+      font-weight: 900;
+    }
+
+    .chain__index {
+      display: block;
+      margin-bottom: 0.75cqw;
+      color: var(--lvnx-cyan);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 0.88cqw;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+
+    .chain__item p { margin-top: 0.75cqw; }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25cqw;
+      margin-top: 2.5cqw;
+    }
+
+    .roadmap__phase {
+      position: relative;
+      min-height: 21.5cqw;
+      padding: 2.9cqw 1.2cqw 1.3cqw;
+      border-left: 1px solid rgba(41, 0, 120, 0.22);
+    }
+
+    .roadmap__phase::before {
+      content: "";
+      position: absolute;
+      top: 1.15cqw;
+      left: 0;
+      right: 0;
+      height: 0.38cqw;
+      background: var(--lvnx-purple);
+    }
+
+    .roadmap__phase::after {
+      content: "";
+      position: absolute;
+      top: 0.55cqw;
+      left: -0.08cqw;
+      width: 1.55cqw;
+      height: 1.55cqw;
+      border-radius: 50%;
+      background: var(--lvnx-cyan);
+    }
+
+    .roadmap__phase h3 { color: var(--lvnx-purple); }
+    .roadmap__phase ul { margin-top: 0.95cqw; }
+
+    .pair-list {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 0.7cqw 1.25cqw;
+      margin-top: 2.25cqw;
+    }
+
+    .pair-list__problem,
+    .pair-list__response {
+      min-height: 5.25cqw;
+      padding: 1.2cqw 1.35cqw;
+    }
+
+    .pair-list__problem {
+      border-left: 0.34cqw solid var(--lvnx-purple);
+      background: var(--lvnx-lavender);
+      font-weight: 900;
+    }
+
+    .pair-list__response {
+      border-left: 0.34cqw solid var(--lvnx-cyan);
+      background: rgba(44, 177, 222, 0.09);
+    }
+
+    .constraint-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2.2cqw;
+      margin-top: 2.4cqw;
+    }
+
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25cqw;
+    }
+
+    .metric {
+      padding: 1.45cqw;
+      border-top: 0.4cqw solid var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .metric__value {
+      display: block;
+      margin-bottom: 0.45cqw;
+      color: var(--lvnx-cyan);
+      font-size: 2.2cqw;
+      font-weight: 900;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2cqw;
+      margin-top: 2.4cqw;
+    }
+
+    .principle {
+      min-height: 10.2cqw;
+      padding: 1.3cqw 1.3cqw 1.1cqw;
+      border-top: 0.38cqw solid var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .principle__index {
+      display: block;
+      margin-bottom: 0.55cqw;
+      color: var(--lvnx-purple);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 0.88cqw;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-rows: auto auto auto;
+      gap: 1.25cqw;
+      margin-top: 1.7cqw;
+    }
+
+    .architecture__top {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr 1fr;
+      gap: 1.2cqw;
+      align-items: center;
+    }
+
+    .architecture__middle {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.7cqw;
+    }
+
+    .architecture__bottom {
+      display: grid;
+      grid-template-columns: 1.35fr 1.35fr 1fr 1fr;
+      gap: 0.8cqw;
+    }
+
+    .org-box {
+      display: grid;
+      place-items: center;
+      min-height: 4.1cqw;
+      padding: 0.65cqw;
+      border: 1px solid rgba(41, 0, 120, 0.22);
+      background: var(--lvnx-white);
+      color: var(--lvnx-purple);
+      text-align: center;
+      font-size: 1.04cqw;
+      font-weight: 900;
+      line-height: 1.18;
+    }
+
+    .org-box--board {
+      min-height: 4.9cqw;
+      border: none;
+      background: var(--lvnx-purple);
+      color: var(--lvnx-white);
+      font-size: 1.3cqw;
+    }
+
+    .org-box--staff {
+      border: 0.22cqw solid var(--lvnx-cyan);
+      background: rgba(44, 177, 222, 0.11);
+    }
+
+    .org-box--decision {
+      border: 0.22cqw dashed var(--lvnx-cyan);
+      background: var(--lvnx-lavender);
+    }
+
+    .org-box--sub {
+      min-height: 3.65cqw;
+      background: #EEEAF5;
+      color: var(--lvnx-ink);
+    }
+
+    .org-box--sig {
+      min-height: 3.65cqw;
+      border-color: var(--lvnx-cyan);
+      background: rgba(44, 177, 222, 0.11);
+      color: var(--lvnx-navy);
+    }
+
+    .org-box--council {
+      border-color: var(--lvnx-cyan);
+      background: var(--lvnx-navy);
+      color: var(--lvnx-white);
+    }
+
+    .architecture__caption {
+      display: flex;
+      gap: 1cqw;
+      align-items: center;
+      margin-top: 0.8cqw;
+      color: var(--lvnx-muted);
+      font-size: 1.06cqw;
+    }
+
+    .legend-dot {
+      display: inline-block;
+      width: 0.8cqw;
+      height: 0.8cqw;
+      margin-right: 0.35cqw;
+      background: var(--lvnx-purple);
+    }
+
+    .legend-dot--cyan { background: var(--lvnx-cyan); }
+    .legend-dot--dash { border: 1px dashed var(--lvnx-cyan); background: transparent; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.6cqw;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      padding: 0.75cqw 0.8cqw;
+      border-bottom: 1px solid var(--lvnx-line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: var(--lvnx-purple);
+      color: var(--lvnx-white);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 1.06cqw;
+      font-weight: 800;
+      line-height: 1.18;
+    }
+
+    td strong { color: var(--lvnx-purple); }
+
+    .table--compact th,
+    .table--compact td {
+      padding: 0.52cqw 0.65cqw;
+      font-size: 1.18cqw;
+      line-height: 1.2;
+    }
+
+    .table--compact th { font-size: 1cqw; }
+
+    .cadence {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1cqw;
+      margin-top: 2.3cqw;
+    }
+
+    .cadence__item {
+      min-height: 14.5cqw;
+      padding: 1.3cqw;
+      border-top: 0.4cqw solid var(--lvnx-purple);
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .cadence__time {
+      display: block;
+      margin-bottom: 0.7cqw;
+      color: var(--lvnx-cyan);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 0.96cqw;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.45cqw;
+      margin-top: 2.7cqw;
+    }
+
+    .flow__step {
+      position: relative;
+      min-height: 13.8cqw;
+      padding: 1.35cqw 1.05cqw;
+      border-top: 0.4cqw solid var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .flow__step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 45%;
+      right: -1.35cqw;
+      color: var(--lvnx-cyan);
+      font-size: 1.7cqw;
+      font-weight: 900;
+    }
+
+    .flow__step p { margin-top: 0.7cqw; }
+
+    .lane-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.05cqw;
+      margin-top: 1.65cqw;
+    }
+
+    .lane {
+      min-height: 8.7cqw;
+      padding: 1.15cqw 1.25cqw;
+      border-left: 0.38cqw solid var(--lvnx-purple);
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .lane--wide { grid-column: span 2; }
+    .lane h3 { color: var(--lvnx-purple); }
+    .lane p { margin-top: 0.55cqw; }
+    .lane__meta { color: var(--lvnx-muted); font-weight: 700; }
+
+    .value-table th:nth-child(1) { width: 12%; }
+    .value-table th:nth-child(2) { width: 27%; }
+    .value-table th:nth-child(3) { width: 26%; }
+    .value-table th:nth-child(4) { width: 35%; }
+
+    .lifecycle {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.1cqw;
+      margin-top: 2.1cqw;
+    }
+
+    .lifecycle__step {
+      position: relative;
+      min-height: 10.6cqw;
+      padding: 1.15cqw;
+      border-top: 0.38cqw solid var(--lvnx-purple);
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    .lifecycle__step:not(:last-child)::after {
+      content: "›";
+      position: absolute;
+      top: 35%;
+      right: -0.9cqw;
+      color: var(--lvnx-cyan);
+      font-size: 2.6cqw;
+      font-weight: 900;
+    }
+
+    .lifecycle__step p { margin-top: 0.55cqw; }
+
+    .service-bands {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1cqw;
+      margin-top: 1.35cqw;
+    }
+
+    .service-band {
+      padding: 0.9cqw 1.1cqw;
+      border: 1px solid var(--lvnx-line);
+      background: var(--lvnx-lavender);
+      text-align: center;
+    }
+
+    .service-band strong { color: var(--lvnx-purple); }
+
+    .sig-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 1.7cqw;
+      margin-top: 1.75cqw;
+    }
+
+    .sig-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9cqw;
+    }
+
+    .sig {
+      min-height: 8.1cqw;
+      padding: 1cqw;
+      border-left: 0.35cqw solid var(--lvnx-cyan);
+      background: rgba(44, 177, 222, 0.1);
+    }
+
+    .sig p { margin-top: 0.45cqw; }
+
+    .output-contract {
+      padding: 1.25cqw 1.4cqw;
+      background: var(--lvnx-purple);
+      color: var(--lvnx-white);
+    }
+
+    .output-contract ul { margin-top: 0.8cqw; }
+
+    .role-line {
+      margin-top: 0.9cqw;
+      padding: 0.8cqw 1cqw;
+      border: 1px solid var(--lvnx-line);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .committee-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85cqw;
+      margin-top: 1.45cqw;
+    }
+
+    .committee {
+      min-height: 7.65cqw;
+      padding: 0.95cqw 1.05cqw;
+      border-top: 0.34cqw solid var(--lvnx-purple);
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .committee p { margin-top: 0.4cqw; }
+    .committee__measure { color: var(--lvnx-muted); font-weight: 700; }
+
+    .council-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr 0.9fr;
+      gap: 1.15cqw;
+      margin-top: 2.2cqw;
+    }
+
+    .council-column {
+      min-height: 21cqw;
+      padding: 1.35cqw;
+      border-top: 0.4cqw solid var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .council-column ul { margin-top: 0.9cqw; }
+
+    .audience-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1fr 1fr;
+      gap: 1.3cqw;
+      margin-top: 2.1cqw;
+    }
+
+    .audience-column {
+      min-height: 23cqw;
+      padding: 1.3cqw;
+      border-top: 0.42cqw solid var(--lvnx-purple);
+      background: rgba(255, 255, 255, 0.87);
+    }
+
+    .audience-column h3 { color: var(--lvnx-purple); }
+    .audience-column ul { margin-top: 0.8cqw; }
+
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.1cqw;
+      margin-top: 1.85cqw;
+    }
+
+    .partner-lane {
+      min-height: 16.7cqw;
+      padding: 1.2cqw;
+      border-top: 0.38cqw solid var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .partner-lane p { margin-top: 0.55cqw; }
+
+    .guardrail-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 1cqw;
+      margin-top: 1.1cqw;
+      padding: 0.9cqw 1.15cqw;
+      border-left: 0.38cqw solid var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .scorecard th:nth-child(1) { width: 27%; }
+    .scorecard th:nth-child(2) { width: 26%; }
+    .scorecard th:nth-child(3),
+    .scorecard th:nth-child(4) { width: 13%; }
+    .scorecard th:nth-child(5) { width: 12%; }
+    .scorecard th:nth-child(6) { width: 9%; }
+
+    [contenteditable="true"] {
+      min-width: 2.5cqw;
+      min-height: 1.7cqw;
+      padding: 0.16cqw 0.28cqw;
+      border-bottom: 1px dashed var(--lvnx-cyan);
+      background: rgba(44, 177, 222, 0.08);
+      outline: none;
+    }
+
+    [contenteditable="true"]:focus {
+      border-bottom-style: solid;
+      background: rgba(44, 177, 222, 0.18);
+      box-shadow: 0 0 0 2px rgba(44, 177, 222, 0.25);
+    }
+
+    [contenteditable="true"]:empty::before {
+      content: attr(data-placeholder);
+      color: var(--lvnx-muted);
+      font-style: italic;
+    }
+
+    .decision-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85cqw 1.25cqw;
+      margin-top: 1.55cqw;
+    }
+
+    .decision {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.8cqw;
+      align-items: start;
+      min-height: 7.3cqw;
+      padding: 1cqw 1.1cqw;
+      border-left: 0.35cqw solid var(--lvnx-purple);
+      background: rgba(255, 255, 255, 0.87);
+    }
+
+    .decision p { margin-top: 0.36cqw; }
+
+    .status-toggle {
+      min-width: 6.7cqw;
+      padding: 0.5cqw 0.65cqw;
+      border: 1px solid var(--lvnx-purple);
+      background: transparent;
+      color: var(--lvnx-purple);
+      font-size: 0.86cqw;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .status-toggle[data-status="Discussing"] {
+      border-color: var(--lvnx-cyan);
+      background: rgba(44, 177, 222, 0.12);
+    }
+
+    .status-toggle[data-status="Decided"] {
+      border-color: var(--lvnx-purple);
+      background: var(--lvnx-purple);
+      color: var(--lvnx-white);
+    }
+
+    .action-register th:nth-child(1) { width: 29%; }
+    .action-register th:nth-child(2) { width: 18%; }
+    .action-register th:nth-child(3) { width: 18%; }
+    .action-register th:nth-child(4) { width: 35%; }
+
+    .tensions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9cqw 1.2cqw;
+      margin-top: 1.75cqw;
+    }
+
+    .tension {
+      padding: 1.05cqw 1.2cqw;
+      border-left: 0.35cqw solid var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .tension p { margin-top: 0.38cqw; }
+
+    .design-test {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2cqw;
+      margin-top: 2.2cqw;
+    }
+
+    .design-test__question {
+      padding: 1.35cqw 1.45cqw;
+      border-top: 0.38cqw solid var(--lvnx-cyan);
+      background: rgba(255, 255, 255, 0.09);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 2cqw;
+      font-weight: 800;
+      line-height: 1.14;
+    }
+
+    .slide-notes { display: none; }
+
+    .notes-panel {
+      display: none;
+      width: min(100%, 1280px);
+      margin-top: 16px;
+      padding: 18px 22px;
+      border-left: 4px solid var(--lvnx-cyan);
+      background: var(--shell-soft);
+      color: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow);
+    }
+
+    .notes-panel.visible { display: block; }
+
+    .notes-panel h2 {
+      max-width: none;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .notes-panel p,
+    .notes-panel li {
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .notes-panel ul { margin-top: 8px; }
+
+    .deck-footer {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 18px;
+      min-height: 48px;
+      padding: 8px 16px;
+      background: rgba(16, 16, 24, 0.96);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+    }
+
+    .progress {
+      width: min(30vw, 340px);
+      height: 4px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .progress__bar {
+      width: 0;
+      height: 100%;
+      background: var(--lvnx-cyan);
+      transition: width 180ms ease;
+    }
+
+    .deck-footer__help { justify-self: end; }
+
+    dialog {
+      width: min(1120px, calc(100vw - 32px));
+      max-height: calc(100vh - 40px);
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: var(--shell-soft);
+      color: var(--lvnx-white);
+      box-shadow: var(--shadow);
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.74);
+      backdrop-filter: blur(7px);
+    }
+
+    .overview__header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      background: rgba(28, 27, 41, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .overview__header h2 {
+      max-width: none;
+      font-size: 20px;
+    }
+
+    .overview__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .overview__item {
+      min-height: 112px;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--lvnx-white);
+      text-align: left;
+    }
+
+    .overview__item:hover,
+    .overview__item:focus-visible {
+      border-color: var(--lvnx-cyan);
+      background: rgba(44, 177, 222, 0.11);
+      outline: none;
+    }
+
+    .overview__number {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--lvnx-cyan);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+    }
+
+    .overview__title {
+      display: block;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .overview__source {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 760px) {
+      .controls {
+        overflow-x: auto;
+        padding-inline: 10px;
+      }
+
+      .controls__brand span { display: none; }
+      .controls__brand img { width: 66px; }
+      .control-button { min-width: max-content; }
+      .control-button[data-mobile-hide="true"] { display: none; }
+
+      .stage { padding: 10px; }
+      .overview__grid { grid-template-columns: 1fr; }
+
+      .deck-footer {
+        grid-template-columns: auto 1fr auto;
+        padding-inline: 10px;
+      }
+
+      .deck-footer__help { display: none; }
+      .progress { width: 100%; }
+    }
+
+    @media print {
+      @page { size: 13.333in 7.5in; margin: 0; }
+
+      html,
+      body {
+        background: var(--lvnx-white);
+        color: var(--lvnx-ink);
+      }
+
+      .controls,
+      .deck-footer,
+      .notes-panel,
+      dialog { display: none !important; }
+
+      .app-shell,
+      .stage,
+      .deck { display: block; padding: 0; margin: 0; width: auto; }
+
+      .slide,
+      .slide.active {
+        display: block;
+        width: 13.333in;
+        height: 7.5in;
+        break-after: page;
+        box-shadow: none;
+      }
+
+      .slide:last-child { break-after: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="controls" aria-label="Deck controls">
+      <div class="controls__brand">
+        <img src="assets/logos/lvnx-wordmark-white.png" alt="LVNx">
+        <span>LVN Strategy &amp; Operating Model</span>
+      </div>
+      <button class="control-button control-button--icon" id="prevButton" type="button" aria-label="Previous slide">‹</button>
+      <button class="control-button control-button--icon" id="nextButton" type="button" aria-label="Next slide">›</button>
+      <button class="control-button" id="overviewButton" type="button">Overview</button>
+      <button class="control-button" id="notesButton" type="button" data-mobile-hide="true">Notes</button>
+      <button class="control-button" id="copyLinkButton" type="button" data-mobile-hide="true">Copy link</button>
+      <button class="control-button" id="exportButton" type="button" data-mobile-hide="true">Export work</button>
+      <button class="control-button" id="fullscreenButton" type="button">Full screen</button>
+      <button class="control-button" id="printButton" type="button" data-mobile-hide="true">Print</button>
+    </header>
+
+    <div class="stage">
+      <main class="deck" id="deck" aria-live="polite">
+        <section class="slide slide--cover slide--dark active" id="slide-01" data-title="LVN Strategy &amp; Operating Model" data-source="Synthesis" aria-label="Slide 1: LVN Strategy and Operating Model">
+          <img class="slide-bg" src="assets/backgrounds/dark-section-lvnx-left.png" alt="">
+          <div class="slide-content">
+            <p class="eyebrow">Board working session · 2026–2027</p>
+            <h1>LVN Strategy &amp; Operating Model</h1>
+            <p class="subtitle">A consolidated plan for governance, participation, and value exchange.</p>
+            <p class="subtitle" style="margin-top:2.2cqw;font-size:1.25cqw;">Built from the March 2026 Board Vision and the Restructuring Proposal.</p>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Synthesis</span><span class="slide-meta__number">01</span></div>
+          <aside class="slide-notes">
+            <ul>
+              <li>This file brings the strategic plan and volunteer restructuring proposal into one operating model.</li>
+              <li>The source decks are treated as inputs. Items labeled “Board decision” are intentionally unresolved.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-02" data-title="How to use this working deck" data-source="Working file" aria-label="Slide 2: How to use this working deck">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Working file</p>
+            <h2>Use it to present, decide, and operate</h2>
+            <div class="title-rule"></div>
+            <div class="grid-4 content-start">
+              <div class="panel panel--purple">
+                <p class="panel__label">Present</p>
+                <h3>Move cleanly</h3>
+                <p>Arrow keys, clickable controls, touch swipe, direct slide links, and full screen.</p>
+              </div>
+              <div class="panel panel--cyan">
+                <p class="panel__label">Trace</p>
+                <h3>Know the origin</h3>
+                <p>Every slide is tagged as source plan, restructuring, synthesis, or board decision.</p>
+              </div>
+              <div class="panel panel--purple">
+                <p class="panel__label">Edit</p>
+                <h3>Work in the file</h3>
+                <p>Dotted fields are editable. Changes stay in this browser until cleared.</p>
+              </div>
+              <div class="panel panel--cyan">
+                <p class="panel__label">Export</p>
+                <h3>Carry work forward</h3>
+                <p>Print the deck or export the editable fields as a Markdown action file.</p>
+              </div>
+            </div>
+            <div class="callout" style="margin-top:1.5cqw;">The deck distinguishes inherited proposals from recommendations. It does not imply that an open governance choice has already been approved.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Working file</span><span class="slide-meta__number">02</span></div>
+          <aside class="slide-notes">
+            <ul>
+              <li>Press O for the slide overview, N for notes, and F for full screen.</li>
+              <li>Use the “Export work” control to download the current editable fields.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section class="slide slide--dark" id="slide-03" data-title="One operating chain" data-source="Synthesis" aria-label="Slide 3: One operating chain">
+          <img class="slide-bg" src="assets/backgrounds/dark-purple-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-white.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">The combined thesis</p>
+            <h2>The two decks form one operating chain</h2>
+            <div class="title-rule"></div>
+            <div class="chain">
+              <div class="chain__item"><span class="chain__index">01</span><h3>Strategy</h3><p>Three focus areas define where LVN is going.</p></div>
+              <div class="chain__item"><span class="chain__index">02</span><h3>Structure</h3><p>Board, staff, committees, and subcommittees divide the work.</p></div>
+              <div class="chain__item"><span class="chain__index">03</span><h3>Communities</h3><p>SIGs and the C-Suite Council create year-round signal and content.</p></div>
+              <div class="chain__item"><span class="chain__index">04</span><h3>Participation</h3><p>Members, volunteers, partners, and sponsors enter through clear lanes.</p></div>
+              <div class="chain__item"><span class="chain__index">05</span><h3>Proof</h3><p>Outputs, measures, and renewal decisions show whether the exchange works.</p></div>
+            </div>
+            <div class="callout" style="margin-top:1.8cqw;">If any handoff is undefined, the work returns to the Board.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Synthesis</span><span class="slide-meta__number">03</span></div>
+          <aside class="slide-notes">
+            <p>The strategic plan defines direction. The restructuring deck proposes boxes. This operating chain supplies the missing handoffs between them.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-04" data-title="North star and guardrails" data-source="Source plan" aria-label="Slide 4: North star and guardrails">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Strategic plan</p>
+            <h2>North star and guardrails</h2>
+            <div class="title-rule"></div>
+            <div class="grid-2 content-start" style="grid-template-columns:1.15fr 0.85fr;">
+              <div>
+                <p class="lede"><strong>LVN will elevate the value it provides to LPM, Practice Management, and Pricing professionals, add C-level members from existing disciplines, and expand into Innovation &amp; AI and Law Firm Growth.</strong></p>
+                <div class="callout" style="margin-top:1.45cqw;">The core disciplines remain the anchor. Expansion is additive, not a replacement.</div>
+              </div>
+              <div class="panel panel--soft">
+                <p class="panel__label">Guiding principles</p>
+                <ul>
+                  <li>Member-led</li>
+                  <li>High-trust, peer-driven experiences</li>
+                  <li>Relevant, function-specific content</li>
+                  <li>Useful from entry level through C-suite</li>
+                  <li>Responsive to the evolving legal market</li>
+                  <li>Open to aligned partnerships</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Source plan</span><span class="slide-meta__number">04</span></div>
+          <aside class="slide-notes">
+            <p>Source: Board Vision slide 2 and Restructuring Proposal slide 3. “C-level” and “C-suite” are normalized here for readability.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-05" data-title="Three strategic focus areas" data-source="Source plan" aria-label="Slide 5: Three strategic focus areas">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Strategic plan</p>
+            <h2>Three focus areas, in sequence</h2>
+            <div class="title-rule"></div>
+            <div class="grid-3 content-start" style="gap:2.2cqw;">
+              <div class="numbered"><div class="numbered__number">1</div><h3>Strengthen the core</h3><p>Improve value delivery, run LVNx 2026, grow membership, recruit C-suite members, and build the next leadership bench.</p></div>
+              <div class="numbered"><div class="numbered__number">2</div><h3>Define the expansion</h3><p>Clarify the audience, value proposition, content, and experiences for Innovation &amp; AI and Law Firm Growth.</p></div>
+              <div class="numbered"><div class="numbered__number">3</div><h3>Acquire and integrate</h3><p>Build partnerships, recruit leaders, adjust advisory structures, and launch membership and sponsor campaigns.</p></div>
+            </div>
+            <div class="callout" style="margin-top:1.55cqw;"><strong>Sequencing rule:</strong> stabilize the operating model before scaling the audience.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Source plan</span><span class="slide-meta__number">05</span></div>
+          <aside class="slide-notes">
+            <p>The Board Vision explicitly orders the work: Board operations and existing C-suite first, expanded audience second, expanded-audience C-suite third.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-06" data-title="2026–2027 strategic sequence" data-source="Source plan + synthesis" aria-label="Slide 6: 2026 to 2027 strategic sequence">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Strategic sequence</p>
+            <h2>Move from structure to scale</h2>
+            <div class="title-rule"></div>
+            <div class="roadmap">
+              <div class="roadmap__phase"><h3>Now → LVNx 2026</h3><ul><li>Approve target model</li><li>Membership drive</li><li>Recruit emerging leaders</li><li>Align founding sponsors</li></ul></div>
+              <div class="roadmap__phase"><h3>Q4 2026</h3><ul><li>Launch committee and SIG leadership</li><li>Onboard volunteers</li><li>Begin C-suite campaign</li><li>Start monthly cadence</li></ul></div>
+              <div class="roadmap__phase"><h3>H1 2027</h3><ul><li>Operate the new structure</li><li>Develop expanded-audience content</li><li>Run partner pilots</li><li>Build proof points</li></ul></div>
+              <div class="roadmap__phase"><h3>H2 2027</h3><ul><li>Communicate expansion</li><li>Membership and sponsor drive 2.0</li><li>Recruit expanded-audience executives</li><li>Review and renew charters</li></ul></div>
+            </div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Source plan + synthesis</span><span class="slide-meta__number">06</span></div>
+          <aside class="slide-notes">
+            <p>LVNx 2026 is September 16–18, 2026, in Chicago. The source plan places expanded-audience content and communications primarily in 2027.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-07" data-title="Why the operating model must change" data-source="Restructuring" aria-label="Slide 7: Why the operating model must change">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Restructuring proposal</p>
+            <h2>Three symptoms point to three missing capabilities</h2>
+            <div class="title-rule"></div>
+            <div class="pair-list">
+              <div class="pair-list__problem"><h3>Content drought</h3><p>Too much time between useful member experiences.</p></div>
+              <div class="pair-list__response"><h3>Build a year-round content engine</h3><p>SIGs, Education, Programming, and staff work from one portfolio and cadence.</p></div>
+              <div class="pair-list__problem"><h3>No leadership bench</h3><p>The Board has no reliable pipeline of prepared successors.</p></div>
+              <div class="pair-list__response"><h3>Create a visible service ladder</h3><p>Members move from scoped contribution to team leadership, committee work, and Board readiness.</p></div>
+              <div class="pair-list__problem"><h3>Low community engagement</h3><p>Volunteer opportunities and expected outcomes are unclear.</p></div>
+              <div class="pair-list__response"><h3>Offer multiple participation lanes</h3><p>Every lane states the commitment, benefit, output, owner, and renewal test.</p></div>
+            </div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Restructuring</span><span class="slide-meta__number">07</span></div>
+          <aside class="slide-notes">
+            <p>Source: Restructuring Proposal slide 1. The response column is the operating-model synthesis of the proposed solutions.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--dark" id="slide-08" data-title="Capacity and budget reality" data-source="Restructuring" aria-label="Slide 8: Capacity and budget reality">
+          <img class="slide-bg" src="assets/backgrounds/dark-purple-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-white.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Resource constraint</p>
+            <h2>The first version must be light enough to run</h2>
+            <div class="title-rule"></div>
+            <div class="constraint-grid">
+              <div>
+                <div class="metric-strip">
+                  <div class="metric"><span class="metric__value">$15K</span><p>FY26 strategic initiatives allocation</p></div>
+                  <div class="metric"><span class="metric__value">~$5K</span><p>Set aside for 501(c)(6) and legal filing work</p></div>
+                  <div class="metric"><span class="metric__value">$0</span><p>Dedicated restructuring budget in the original FY26 plan</p></div>
+                </div>
+                <div class="callout" style="margin-top:1.55cqw;">Phasing is not a compromise. It is a design constraint.</div>
+              </div>
+              <div class="panel">
+                <p class="panel__label">Board must set</p>
+                <ul>
+                  <li>A single staff operating owner</li>
+                  <li>Expected staff hours per month</li>
+                  <li>A spend ceiling and approval rule</li>
+                  <li>The minimum viable launch scope</li>
+                  <li>Which work pauses to make room</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Restructuring</span><span class="slide-meta__number">08</span></div>
+          <aside class="slide-notes">
+            <p>Source: Restructuring Proposal slide 2. Staff capacity, reallocation, and alternative funding are explicit concerns in the source.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-09" data-title="Operating-model design principles" data-source="Synthesis" aria-label="Slide 9: Operating model design principles">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Recommended design</p>
+            <h2>Six rules for a volunteer-led system</h2>
+            <div class="title-rule"></div>
+            <div class="principles">
+              <div class="principle"><span class="principle__index">01</span><h3>Board governs</h3><p>Staff coordinates. Volunteer groups produce.</p></div>
+              <div class="principle"><span class="principle__index">02</span><h3>Every group has a contract</h3><p>Charter, owner, outputs, measures, and a review date.</p></div>
+              <div class="principle"><span class="principle__index">03</span><h3>One intake</h3><p>Ideas do not become side projects through private channels.</p></div>
+              <div class="principle"><span class="principle__index">04</span><h3>Authority matches risk</h3><p>Routine delivery stays out of the Board agenda.</p></div>
+              <div class="principle"><span class="principle__index">05</span><h3>The exchange is explicit</h3><p>People know what they give, get, and prove.</p></div>
+              <div class="principle"><span class="principle__index">06</span><h3>Nothing is permanent by default</h3><p>Charters, roles, and programs renew on evidence.</p></div>
+            </div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Synthesis</span><span class="slide-meta__number">09</span></div>
+          <aside class="slide-notes">
+            <p>These rules are the proposed filter for every committee, SIG, council, partnership, and sponsor package.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-10" data-title="Proposed governance architecture" data-source="Restructuring + decisions" aria-label="Slide 10: Proposed governance architecture">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Target architecture</p>
+            <h2>One Board, one operating layer, clear delivery groups</h2>
+            <div class="title-rule"></div>
+            <div class="architecture">
+              <div class="architecture__top">
+                <div class="org-box org-box--staff">Staff / Operations<br>portfolio, cadence, enablement</div>
+                <div class="org-box org-box--board">Board of Directors<br>strategy, budget, governance, risk</div>
+                <div class="org-box org-box--decision">Advisory Board<br>define, merge, or retire</div>
+              </div>
+              <div class="architecture__middle">
+                <div class="org-box">Conference</div><div class="org-box">Education</div><div class="org-box">Finance</div><div class="org-box">Membership</div><div class="org-box">Sponsorship &amp; Partnerships</div><div class="org-box org-box--decision">WIN<br>placement decision</div>
+              </div>
+              <div class="architecture__bottom">
+                <div class="org-box org-box--sub">Programming + Networking &amp; Engagement<br><strong>Conference subcommittees</strong></div>
+                <div class="org-box org-box--sig">SIG Steering + four SIGs<br><strong>Education engine</strong></div>
+                <div class="org-box org-box--sub">Recruitment &amp; Retention<br><strong>Membership subcommittee</strong></div>
+                <div class="org-box org-box--council">C-Suite Leadership Council<br><strong>advisory insight loop</strong></div>
+              </div>
+            </div>
+            <div class="architecture__caption"><span><i class="legend-dot"></i>Standing structure</span><span><i class="legend-dot legend-dot--cyan"></i>Community / advisory engine</span><span><i class="legend-dot legend-dot--dash"></i>Board decision</span><span>Retire: Extended Committee, Volunteer Directors, Council of Luminaries</span></div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Restructuring + decisions</span><span class="slide-meta__number">10</span></div>
+          <aside class="slide-notes">
+            <ul>
+              <li>This is a synthesis of Restructuring Proposal slides 4, 5, and 22–29.</li>
+              <li>The Advisory Board and WIN placement remain open. The C-Suite Council is shown as advisory, not a governance body.</li>
+              <li>A Board Governance &amp; Nominating owner is addressed on slide 18 because it is missing from the proposed chart.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-11" data-title="Decision rights by layer" data-source="Synthesis" aria-label="Slide 11: Decision rights by layer">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Day-to-day operating model</p>
+            <h2>Put decisions at the lowest responsible layer</h2>
+            <div class="title-rule"></div>
+            <table>
+              <thead><tr><th style="width:16%;">Layer</th><th style="width:35%;">Owns</th><th style="width:31%;">Does not own</th><th style="width:18%;">Reporting</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Board</strong></td><td>Strategy, budget, bylaws, risk, appointments, charter approval</td><td>Routine delivery, meeting logistics, ordinary content choices</td><td>Quarterly</td></tr>
+                <tr><td><strong>Staff / operations</strong></td><td>Portfolio, calendar, intake, vendors, communications, dashboard</td><td>Unilateral strategy changes or unapproved material spend</td><td>Monthly packet</td></tr>
+                <tr><td><strong>Standing committees</strong></td><td>Chartered outputs, recommendations, delivery oversight</td><td>Work outside charter or cross-portfolio commitments</td><td>Monthly</td></tr>
+                <tr><td><strong>SIGs</strong></td><td>Community, subject signal, content proposals, peer activity</td><td>Governance, sponsor promises, LVN policy</td><td>Monthly via Steering</td></tr>
+                <tr><td><strong>Councils / advisors</strong></td><td>Executive insight, external signal, peer exchange</td><td>Binding decisions or editorial control</td><td>Quarterly insight</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Synthesis</span><span class="slide-meta__number">11</span></div>
+          <aside class="slide-notes">
+            <p>This decision-rights table is the practical answer to “what is the Board doing day to day?” The Board should see exceptions, risks, and choices, not every task.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-12" data-title="Operating cadence" data-source="Restructuring + synthesis" aria-label="Slide 12: Operating cadence">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Management rhythm</p>
+            <h2>Run one cadence across every group</h2>
+            <div class="title-rule"></div>
+            <div class="cadence">
+              <div class="cadence__item"><span class="cadence__time">Weekly</span><h3>Staff triage</h3><p>Intake, dependencies, capacity, risks, and next actions.</p></div>
+              <div class="cadence__item"><span class="cadence__time">Monthly</span><h3>Committees</h3><p>Review charter outputs, blockers, spend, and member proof.</p></div>
+              <div class="cadence__item"><span class="cadence__time">Monthly</span><h3>SIGs + Steering</h3><p>Community signal, content pipeline, handoffs, and leadership health.</p></div>
+              <div class="cadence__item"><span class="cadence__time">Quarterly</span><h3>Board</h3><p>Strategy, dashboard, exceptions, investment, and appointments.</p></div>
+              <div class="cadence__item"><span class="cadence__time">Annually</span><h3>Portfolio reset</h3><p>Renew, merge, pause, or close groups and programs.</p></div>
+            </div>
+            <div class="callout" style="margin-top:1.35cqw;"><strong>One monthly operating packet:</strong> status, next decision, owner, due date, capacity, and proof.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Restructuring + synthesis</span><span class="slide-meta__number">12</span></div>
+          <aside class="slide-notes">
+            <p>The source timeline calls for monthly SIG, SIG Steering Group, and committee meetings. This slide connects those meetings to a single management rhythm.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--dark" id="slide-13" data-title="How work enters and moves" data-source="Synthesis" aria-label="Slide 13: How work enters and moves">
+          <img class="slide-bg" src="assets/backgrounds/dark-purple-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-white.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Work management</p>
+            <h2>One path from signal to proof</h2>
+            <div class="title-rule"></div>
+            <div class="flow">
+              <div class="flow__step"><h3>1. Signal</h3><p>Member need, SIG insight, council issue, partner idea, or sponsor opportunity.</p></div>
+              <div class="flow__step"><h3>2. Brief</h3><p>Problem, audience, outcome, owner, effort, cost, and measure.</p></div>
+              <div class="flow__step"><h3>3. Triage</h3><p>Staff tests fit, capacity, conflicts, and dependencies.</p></div>
+              <div class="flow__step"><h3>4. Assign</h3><p>A committee or staff owner receives the work and decision rights.</p></div>
+              <div class="flow__step"><h3>5. Deliver</h3><p>Small team executes against a visible milestone.</p></div>
+              <div class="flow__step"><h3>6. Prove</h3><p>Measure use and quality. Renew, adapt, or stop.</p></div>
+            </div>
+            <div class="callout" style="margin-top:1.5cqw;"><strong>Board gate only when needed:</strong> material budget, policy, bylaws, strategy change, or reputational risk.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Synthesis</span><span class="slide-meta__number">13</span></div>
+          <aside class="slide-notes">
+            <p>This intake path keeps good ideas from becoming invisible volunteer obligations or unplanned staff work.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-14" data-title="Participation lanes" data-source="Synthesis" aria-label="Slide 14: Participation lanes">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Participation architecture</p>
+            <h2>Bring people in through a named lane</h2>
+            <div class="title-rule"></div>
+            <div class="lane-grid">
+              <div class="lane"><h3>Member</h3><p>Learn, connect, share needs, and use the community.</p><p class="lane__meta">Entry: membership + onboarding</p></div>
+              <div class="lane"><h3>Volunteer</h3><p>Own a defined output or help lead a community.</p><p class="lane__meta">Entry: year-round form + fit conversation</p></div>
+              <div class="lane"><h3>Partner</h3><p>Contribute reach, capability, expertise, or a shared platform.</p><p class="lane__meta">Entry: scoped partner brief</p></div>
+              <div class="lane"><h3>Sponsor</h3><p>Fund work and participate within written benefit and editorial guardrails.</p><p class="lane__meta">Entry: package + fulfillment plan</p></div>
+              <div class="lane lane--wide"><h3>C-Suite Council member</h3><p>Bring executive signal, candor, and cross-sector perspective to a confidential peer forum. This is an advisory lane, not a governance shortcut.</p><p class="lane__meta">Entry: invitation + selection criteria</p></div>
+            </div>
+            <div class="callout" style="margin-top:1.25cqw;">One person may occupy more than one lane. The agreement changes when the lane changes.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Synthesis</span><span class="slide-meta__number">14</span></div>
+          <aside class="slide-notes">
+            <p>This is the central participation model requested for members, volunteers, partners, sponsors, and executive leaders.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-15" data-title="Value exchange ledger" data-source="Synthesis" aria-label="Slide 15: Value exchange ledger">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Value exchange</p>
+            <h2>Make the return visible on both sides</h2>
+            <div class="title-rule"></div>
+            <table class="table--compact value-table">
+              <thead><tr><th>Lane</th><th>LVN provides</th><th>Participant provides</th><th>Proof the exchange works</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Member</strong></td><td>Practical content, trusted peers, access to contribute</td><td>Dues, time, participation, useful signal</td><td>Activation, retention, useful connections, content use</td></tr>
+                <tr><td><strong>Volunteer</strong></td><td>Defined role, leadership reps, recognition, network</td><td>Time, delivery, collaboration, succession support</td><td>Role fill, milestone completion, satisfaction, advancement</td></tr>
+                <tr><td><strong>Partner</strong></td><td>Shared platform, credibility, community connection</td><td>Reach, expertise, capability, co-investment</td><td>Joint output, qualified reach, repeat collaboration</td></tr>
+                <tr><td><strong>Sponsor</strong></td><td>Written benefits, visibility, access within policy</td><td>Funding, expertise, promotion, fulfillment inputs</td><td>Benefit delivery, member trust, renewal, program result</td></tr>
+                <tr><td><strong>C-suite</strong></td><td>Confidential peer forum and voice into priorities</td><td>Candor, time, strategic insight, relationships</td><td>Participation, useful recommendations, action taken</td></tr>
+              </tbody>
+            </table>
+            <div class="callout" style="margin-top:1.1cqw;">A title, logo placement, or meeting invitation is not a value proposition by itself.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Synthesis</span><span class="slide-meta__number">15</span></div>
+          <aside class="slide-notes">
+            <p>Use this ledger when writing membership benefits, volunteer role descriptions, partner briefs, sponsor packages, and Council invitations.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-16" data-title="Volunteer lifecycle" data-source="Restructuring + recommendation" aria-label="Slide 16: Volunteer lifecycle">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Leadership pipeline</p>
+            <h2>Turn volunteering into a visible service ladder</h2>
+            <div class="title-rule"></div>
+            <div class="lifecycle">
+              <div class="lifecycle__step"><h3>Discover</h3><p>See current needs and role expectations.</p></div>
+              <div class="lifecycle__step"><h3>Fit</h3><p>Rank interests. Match skill, capacity, and need.</p></div>
+              <div class="lifecycle__step"><h3>Onboard</h3><p>Charter, tools, first 90 days, and named support.</p></div>
+              <div class="lifecycle__step"><h3>Contribute</h3><p>Own a small, visible output before a larger role.</p></div>
+              <div class="lifecycle__step"><h3>Lead</h3><p>Chair a team, run meetings, and develop successors.</p></div>
+              <div class="lifecycle__step"><h3>Rotate</h3><p>Handoff, recognition, next role, or clean exit.</p></div>
+            </div>
+            <div class="service-bands">
+              <div class="service-band"><strong>Member contributor</strong><br>1–2 hours / month</div>
+              <div class="service-band"><strong>Team volunteer</strong><br>3–5 hours / month</div>
+              <div class="service-band"><strong>Volunteer lead</strong><br>5–8 hours / month</div>
+            </div>
+            <p style="margin-top:0.85cqw;color:var(--lvnx-muted);font-size:1.08cqw;">Proposed planning assumptions. Confirm with volunteers before publishing.</p>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Restructuring + recommendation</span><span class="slide-meta__number">16</span></div>
+          <aside class="slide-notes">
+            <ul>
+              <li>The revised volunteer form is intended to be year-round and housed in Monday.com.</li>
+              <li>The source notes recommend ranked preferences and defined leadership responsibilities.</li>
+              <li>The monthly hour bands are proposed planning assumptions, not source facts.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-17" data-title="SIG operating contract" data-source="Restructuring + recommendation" aria-label="Slide 17: SIG operating contract">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Year-round content engine</p>
+            <h2>Give each SIG the same operating contract</h2>
+            <div class="title-rule"></div>
+            <div class="sig-layout">
+              <div class="sig-grid">
+                <div class="sig"><h3>AI &amp; Innovation</h3><p>Technology, AI, automation, data, adoption, and responsible governance.</p></div>
+                <div class="sig"><h3>Legal Project Management</h3><p>Planning, matter delivery, project methods, tools, and team leadership.</p></div>
+                <div class="sig"><h3>Practice Management</h3><p>Operations, resources, workflow, governance, talent, and service delivery.</p></div>
+                <div class="sig"><h3>Pricing</h3><p>Pricing, profitability, AFAs, budgeting, analytics, and client value.</p></div>
+              </div>
+              <div>
+                <div class="output-contract"><h3>Proposed output floor</h3><ul><li>One member learning session each quarter</li><li>One reusable artifact each quarter</li><li>One member-signal brief each half</li><li>LVNx programming inputs on the conference cycle</li></ul></div>
+                <div class="role-line"><strong>Core team:</strong> Chair, Chair-Elect, Immediate Past Chair, Content Lead, Community Lead.</div>
+                <div class="role-line"><strong>Recommended liaison:</strong> one Board liaison attends Steering; one rotating SIG Chair reports quarterly.</div>
+              </div>
+            </div>
+            <div class="callout" style="margin-top:1.05cqw;"><strong>Decision needed:</strong> source slides show both 1–2 year and 2-year Chair terms. Resolve before recruitment.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Restructuring + recommendation</span><span class="slide-meta__number">17</span></div>
+          <aside class="slide-notes">
+            <p>Source: Restructuring Proposal slides 10–16. The output floor and liaison model are recommendations designed to resolve gaps in the source.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-18" data-title="Committee portfolio" data-source="Restructuring + recommendation" aria-label="Slide 18: Committee portfolio">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Standing committees</p>
+            <h2>Define each committee by its output</h2>
+            <div class="title-rule"></div>
+            <div class="committee-grid">
+              <div class="committee"><h3>Conference</h3><p>Integrated LVNx plan and attendee experience.</p><p class="committee__measure">Proof: attendance, engagement, feedback</p></div>
+              <div class="committee"><h3>Education</h3><p>Year-round learning portfolio and SIG enablement.</p><p class="committee__measure">Proof: output cadence, use, quality</p></div>
+              <div class="committee"><h3>Finance</h3><p>Budget, forecast, reserves, liquidity, and policy oversight.</p><p class="committee__measure">Proof: variance, cash, reporting</p></div>
+              <div class="committee"><h3>Membership</h3><p>Acquisition, onboarding, activation, and retention.</p><p class="committee__measure">Proof: growth, activation, renewal</p></div>
+              <div class="committee"><h3>Sponsorship &amp; Partnerships</h3><p>Relationship portfolio, packages, fulfillment, and renewal.</p><p class="committee__measure">Proof: revenue, delivery, trust</p></div>
+              <div class="committee"><h3>WIN</h3><p>Advancement, connection, content, and community for women.</p><p class="committee__measure">Decision: standing committee, SIG, or program?</p></div>
+            </div>
+            <div class="callout" style="margin-top:1.05cqw;"><strong>Governance gap:</strong> name an owner for nominations, bylaws, Board succession, and charter review. Create a small Governance &amp; Nominating Committee or assign the duties explicitly to the Board.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Restructuring + recommendation</span><span class="slide-meta__number">18</span></div>
+          <aside class="slide-notes">
+            <p>Source: Restructuring Proposal slides 22–29. The governance gap is a new observation based on the strategic plan’s requirement to establish a governance, structure, and policy framework.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--dark" id="slide-19" data-title="C-Suite Leadership Council" data-source="Restructuring + recommendation" aria-label="Slide 19: C-Suite Leadership Council">
+          <img class="slide-bg" src="assets/backgrounds/dark-purple-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-white.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Replace the Council of Luminaries</p>
+            <h2>Build a Council with a job to do</h2>
+            <div class="title-rule"></div>
+            <div class="council-layout">
+              <div class="council-column"><h3>Purpose</h3><ul><li>Confidential executive peer exchange</li><li>Signal on market and operating priorities</li><li>Cross-sector relationships</li><li>Strategic insight for LVN</li></ul></div>
+              <div class="council-column"><h3>Membership</h3><ul><li>Senior law-firm and corporate leaders</li><li>ALSP, legal technology, consulting, and aligned partners</li><li>Defined selection criteria</li><li>Balanced representation</li></ul></div>
+              <div class="council-column"><h3>Operating contract</h3><ul><li>Four curated touchpoints / year</li><li>Confidentiality norms</li><li>Annual insight memo</li><li>No governance authority</li><li>Annual renewal</li></ul></div>
+            </div>
+            <div class="callout" style="margin-top:1.15cqw;"><strong>Naming decision:</strong> use “LVN C-Suite Leadership Council.” Treat “Legal Industry Executive Exchange” as an optional program descriptor, not a second name.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Restructuring + recommendation</span><span class="slide-meta__number">19</span></div>
+          <aside class="slide-notes">
+            <p>Source: Restructuring Proposal slides 17–21. The four-touchpoint cadence, annual insight memo, and renewal rule are recommendations.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-20" data-title="Audience growth lanes" data-source="Source plan + synthesis" aria-label="Slide 20: Audience growth lanes">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Membership expansion</p>
+            <h2>Expand through communities before titles</h2>
+            <div class="title-rule"></div>
+            <div class="audience-layout">
+              <div class="audience-column"><h3>Core communities</h3><ul><li>Legal Project Management</li><li>Practice Management</li><li>Pricing</li></ul><p style="margin-top:1.2cqw;"><strong>Goal:</strong> deepen value and increase AmLaw 200 participation.</p></div>
+              <div class="audience-column"><h3>Innovation &amp; AI pilot</h3><ul><li>Innovation and technology leaders</li><li>Data, analytics, and transformation roles</li><li>Practical AI governance and adoption</li><li>Connection to legal operations problems</li></ul><p style="margin-top:1.05cqw;"><strong>Entry:</strong> SIG, content, peer forums, then leadership.</p></div>
+              <div class="audience-column"><h3>Law Firm Growth pilot</h3><ul><li>Revenue, growth, and client-value leaders</li><li>Business development and client experience</li><li>Growth through pricing, operations, and service</li><li>Cross-functional C-suite connection</li></ul><p style="margin-top:1.05cqw;"><strong>Entry:</strong> targeted programs, partnerships, and Council.</p></div>
+            </div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Source plan + synthesis</span><span class="slide-meta__number">20</span></div>
+          <aside class="slide-notes">
+            <ul>
+              <li>Source: Board Vision slides 5–6 and slide 2 speaker notes.</li>
+              <li>The source identifies ILTA and LMA as potential audience-expansion partners and lists examples of future target sponsors. Those examples should be revalidated before outreach.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section class="slide slide--dark" id="slide-21" data-title="Partner and sponsor model" data-source="Synthesis" aria-label="Slide 21: Partner and sponsor model">
+          <img class="slide-bg" src="assets/backgrounds/dark-purple-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-white.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">External participation</p>
+            <h2>Separate partnership from sponsorship</h2>
+            <div class="title-rule"></div>
+            <div class="partner-grid">
+              <div class="partner-lane"><h3>Community partner</h3><p><strong>Give:</strong> audience reach and reciprocal access.</p><p><strong>Get:</strong> useful participation and shared visibility.</p></div>
+              <div class="partner-lane"><h3>Knowledge partner</h3><p><strong>Give:</strong> expertise, data, research, or facilitation.</p><p><strong>Get:</strong> attribution and community learning.</p></div>
+              <div class="partner-lane"><h3>Program sponsor</h3><p><strong>Give:</strong> funding and fulfillment inputs for a named program.</p><p><strong>Get:</strong> written benefits tied to that program.</p></div>
+              <div class="partner-lane"><h3>Strategic sponsor</h3><p><strong>Give:</strong> annual support across a portfolio.</p><p><strong>Get:</strong> planned, multi-touch benefits and review.</p></div>
+            </div>
+            <div class="guardrail-line"><span>LVN owns editorial choices.</span><span>Participation is disclosed.</span><span>Member data requires consent.</span><span>Benefits are written before sale.</span><span>Renewal follows proof.</span></div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Synthesis</span><span class="slide-meta__number">21</span></div>
+          <aside class="slide-notes">
+            <p>This model keeps relationship-building flexible while protecting member trust. Sponsor funding should not silently create editorial or governance rights.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-22" data-title="Implementation roadmap" data-source="Restructuring + source plan" aria-label="Slide 22: Implementation roadmap">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Phased implementation</p>
+            <h2>Launch the minimum viable operating model</h2>
+            <div class="title-rule"></div>
+            <div class="roadmap" style="grid-template-columns:repeat(5,1fr);">
+              <div class="roadmap__phase"><h3>Now → Aug</h3><ul><li>Close architecture decisions</li><li>Name staff owner</li><li>Confirm capacity and spend</li><li>Open volunteer recruitment</li></ul></div>
+              <div class="roadmap__phase"><h3>LVNx · Sep 16–18</h3><ul><li>Recruit SIG members</li><li>Introduce Council</li><li>Listen to member needs</li><li>Brief sponsors and partners</li></ul></div>
+              <div class="roadmap__phase"><h3>October</h3><ul><li>Select leaders</li><li>Finalize charters</li><li>Run onboarding</li><li>Publish calendar</li></ul></div>
+              <div class="roadmap__phase"><h3>Nov → Jan</h3><ul><li>Begin terms</li><li>Start monthly cadence</li><li>Deliver first outputs</li><li>Baseline metrics</li></ul></div>
+              <div class="roadmap__phase"><h3>2027</h3><ul><li>Run audience pilots</li><li>Expand partnerships</li><li>Build leadership bench</li><li>Review and renew</li></ul></div>
+            </div>
+            <div class="callout" style="margin-top:1.25cqw;">Do not launch every optional body at once. Launch what the named staff owner can support and measure.</div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Restructuring + source plan</span><span class="slide-meta__number">22</span></div>
+          <aside class="slide-notes">
+            <p>This reconciles the Restructuring Proposal timeline with the Board Vision project plan. Dates are organized around LVNx 2026 and the proposed November term start.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-23" data-title="Operating scorecard" data-source="Board workbench" aria-label="Slide 23: Operating scorecard">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Editable workbench</p>
+            <h2>Measure whether the model is earning its keep</h2>
+            <div class="title-rule"></div>
+            <table class="table--compact scorecard">
+              <thead><tr><th>Outcome</th><th>Measure</th><th>Baseline</th><th>2027 target</th><th>Owner</th><th>Review</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Member activation</strong></td><td>% with two meaningful actions / quarter</td><td contenteditable="true" data-edit-key="score-member-baseline" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-member-target" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-member-owner" data-placeholder="Owner"></td><td>Quarterly</td></tr>
+                <tr><td><strong>Content cadence</strong></td><td>Member-facing outputs / month</td><td contenteditable="true" data-edit-key="score-content-baseline" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-content-target" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-content-owner" data-placeholder="Owner"></td><td>Monthly</td></tr>
+                <tr><td><strong>Volunteer health</strong></td><td>Roles filled + 90-day retention</td><td contenteditable="true" data-edit-key="score-volunteer-baseline" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-volunteer-target" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-volunteer-owner" data-placeholder="Owner"></td><td>Monthly</td></tr>
+                <tr><td><strong>Leadership bench</strong></td><td>Ready-now successors for key roles</td><td contenteditable="true" data-edit-key="score-bench-baseline" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-bench-target" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-bench-owner" data-placeholder="Owner"></td><td>Quarterly</td></tr>
+                <tr><td><strong>Partner / sponsor value</strong></td><td>Fulfillment + renewal + member trust</td><td contenteditable="true" data-edit-key="score-partner-baseline" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-partner-target" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-partner-owner" data-placeholder="Owner"></td><td>Quarterly</td></tr>
+                <tr><td><strong>Financial discipline</strong></td><td>Spend and staff time vs approved plan</td><td contenteditable="true" data-edit-key="score-finance-baseline" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-finance-target" data-placeholder="Set"></td><td contenteditable="true" data-edit-key="score-finance-owner" data-placeholder="Owner"></td><td>Monthly</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Board workbench</span><span class="slide-meta__number">23</span></div>
+          <aside class="slide-notes">
+            <p>Dotted fields are editable and saved locally. Establish baselines before setting targets. Avoid choosing measures that require heavy manual administration.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-24" data-title="Board decision register" data-source="Board decision" aria-label="Slide 24: Board decision register">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Editable workbench</p>
+            <h2>Decisions to close before launch</h2>
+            <div class="title-rule"></div>
+            <div class="decision-list">
+              <div class="decision"><div><h3>Approve target architecture</h3><p>Board, staff, six standing groups, substructures, SIGs, and Council.</p><p><strong>Owner:</strong> <span contenteditable="true" data-edit-key="decision-architecture-owner" data-placeholder="Add owner"></span> · <strong>By:</strong> <span contenteditable="true" data-edit-key="decision-architecture-date" data-placeholder="Add date"></span></p></div><button class="status-toggle" type="button" data-status-key="decision-architecture-status" data-status="Open">Open</button></div>
+              <div class="decision"><div><h3>Resolve advisory bodies</h3><p>Define, merge, or retire the Advisory Board. Confirm the C-Suite Council boundary.</p><p><strong>Owner:</strong> <span contenteditable="true" data-edit-key="decision-advisory-owner" data-placeholder="Add owner"></span> · <strong>By:</strong> <span contenteditable="true" data-edit-key="decision-advisory-date" data-placeholder="Add date"></span></p></div><button class="status-toggle" type="button" data-status-key="decision-advisory-status" data-status="Open">Open</button></div>
+              <div class="decision"><div><h3>Name governance ownership</h3><p>Assign nominations, bylaws, succession, and annual charter review.</p><p><strong>Owner:</strong> <span contenteditable="true" data-edit-key="decision-governance-owner" data-placeholder="Add owner"></span> · <strong>By:</strong> <span contenteditable="true" data-edit-key="decision-governance-date" data-placeholder="Add date"></span></p></div><button class="status-toggle" type="button" data-status-key="decision-governance-status" data-status="Open">Open</button></div>
+              <div class="decision"><div><h3>Approve SIG terms and liaisons</h3><p>Resolve leadership terms, Steering composition, and Board reporting.</p><p><strong>Owner:</strong> <span contenteditable="true" data-edit-key="decision-sig-owner" data-placeholder="Add owner"></span> · <strong>By:</strong> <span contenteditable="true" data-edit-key="decision-sig-date" data-placeholder="Add date"></span></p></div><button class="status-toggle" type="button" data-status-key="decision-sig-status" data-status="Open">Open</button></div>
+              <div class="decision"><div><h3>Confirm capacity and spend</h3><p>Name the staff owner, monthly capacity, launch scope, and spend ceiling.</p><p><strong>Owner:</strong> <span contenteditable="true" data-edit-key="decision-capacity-owner" data-placeholder="Add owner"></span> · <strong>By:</strong> <span contenteditable="true" data-edit-key="decision-capacity-date" data-placeholder="Add date"></span></p></div><button class="status-toggle" type="button" data-status-key="decision-capacity-status" data-status="Open">Open</button></div>
+              <div class="decision"><div><h3>Approve value exchange and proof</h3><p>Set participation promises, sponsor guardrails, and the scorecard.</p><p><strong>Owner:</strong> <span contenteditable="true" data-edit-key="decision-value-owner" data-placeholder="Add owner"></span> · <strong>By:</strong> <span contenteditable="true" data-edit-key="decision-value-date" data-placeholder="Add date"></span></p></div><button class="status-toggle" type="button" data-status-key="decision-value-status" data-status="Open">Open</button></div>
+            </div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Board decision</span><span class="slide-meta__number">24</span></div>
+          <aside class="slide-notes">
+            <p>Click each status to cycle through Open, Discussing, and Decided. Owner, date, and status changes are saved in the browser.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--light" id="slide-25" data-title="90-day action register" data-source="Board workbench" aria-label="Slide 25: 90-day action register">
+          <img class="slide-bg" src="assets/backgrounds/light-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-purple.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Editable workbench</p>
+            <h2>Translate the model into owned work</h2>
+            <div class="title-rule"></div>
+            <table class="table--compact action-register">
+              <thead><tr><th>Deliverable</th><th>Accountable role</th><th>Target</th><th>Proof complete</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Ratified architecture + decision rights</strong></td><td contenteditable="true" data-edit-key="action-architecture-owner">Board Chair</td><td contenteditable="true" data-edit-key="action-architecture-date">Pre-LVNx</td><td contenteditable="true" data-edit-key="action-architecture-proof">Recorded Board decision + published chart</td></tr>
+                <tr><td><strong>Four SIG charters + minimum viable teams</strong></td><td contenteditable="true" data-edit-key="action-sig-owner">Education Chairs</td><td contenteditable="true" data-edit-key="action-sig-date">October</td><td contenteditable="true" data-edit-key="action-sig-proof">Signed charters, leaders, calendar, first outputs</td></tr>
+                <tr><td><strong>Volunteer intake + onboarding</strong></td><td contenteditable="true" data-edit-key="action-volunteer-owner">Membership + Staff</td><td contenteditable="true" data-edit-key="action-volunteer-date">October</td><td contenteditable="true" data-edit-key="action-volunteer-proof">Live form, role menu, onboarding pack, response SLA</td></tr>
+                <tr><td><strong>Partner and sponsor lane definitions</strong></td><td contenteditable="true" data-edit-key="action-partner-owner">Sponsorship Chair</td><td contenteditable="true" data-edit-key="action-partner-date">Pre-LVNx</td><td contenteditable="true" data-edit-key="action-partner-proof">Approved packages, guardrails, fulfillment owners</td></tr>
+                <tr><td><strong>Resource plan + reporting rule</strong></td><td contenteditable="true" data-edit-key="action-finance-owner">Finance + Staff</td><td contenteditable="true" data-edit-key="action-finance-date">August</td><td contenteditable="true" data-edit-key="action-finance-proof">Spend cap, capacity plan, monthly variance view</td></tr>
+                <tr><td><strong>Monthly operating packet + scorecard</strong></td><td contenteditable="true" data-edit-key="action-dashboard-owner">Staff Lead</td><td contenteditable="true" data-edit-key="action-dashboard-date">November</td><td contenteditable="true" data-edit-key="action-dashboard-proof">First packet issued with baselines and actions</td></tr>
+              </tbody>
+            </table>
+            <p style="margin-top:1cqw;color:var(--lvnx-muted);font-size:1.08cqw;">Every field in the table is editable and saved locally.</p>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Board workbench</span><span class="slide-meta__number">25</span></div>
+          <aside class="slide-notes">
+            <p>Replace role-level owners with names after the Board confirms the structure. Each “proof complete” entry should be observable, not a progress description.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--dark" id="slide-26" data-title="Source tensions to resolve" data-source="Source reconciliation" aria-label="Slide 26: Source tensions to resolve">
+          <img class="slide-bg" src="assets/backgrounds/dark-purple-content-x-right.png" alt="">
+          <img class="top-logo" src="assets/logos/lvnx-wordmark-white.png" alt="LVNx">
+          <div class="slide-content">
+            <p class="eyebrow">Source reconciliation</p>
+            <h2>The decks do not settle these points</h2>
+            <div class="title-rule"></div>
+            <div class="tensions">
+              <div class="tension"><h3>Advisory Board</h3><p>The proposed chart marks it with a question. Its unique purpose is not defined.</p></div>
+              <div class="tension"><h3>Programming</h3><p>It appears as a standing committee and as a Conference subcommittee.</p></div>
+              <div class="tension"><h3>SIG leadership terms</h3><p>One slide says 1–2 years. Another specifies a 2-year Chair term.</p></div>
+              <div class="tension"><h3>Board liaison</h3><p>The source alternates between a Board liaison and a selected SIG Chair liaison.</p></div>
+              <div class="tension"><h3>Education ownership</h3><p>Year-round content, conference programming, and SIG content need one handoff model.</p></div>
+              <div class="tension"><h3>Implementation phases</h3><p>Phases 6 and 7 are out of order, and Phase 6 repeats the implementation action.</p></div>
+              <div class="tension"><h3>Council naming</h3><p>“C-Suite Leadership Council” and “Legal Industry Executive Exchange” appear together.</p></div>
+              <div class="tension"><h3>Governance ownership</h3><p>The strategic plan calls for a framework, but no body clearly owns it.</p></div>
+            </div>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Source reconciliation</span><span class="slide-meta__number">26</span></div>
+          <aside class="slide-notes">
+            <p>This slide is the audit trail for conflicts found while consolidating the source decks. It should be used as a Board decision checklist.</p>
+          </aside>
+        </section>
+
+        <section class="slide slide--section slide--dark" id="slide-27" data-title="The design test" data-source="Synthesis" aria-label="Slide 27: The design test">
+          <img class="slide-bg" src="assets/backgrounds/dark-section-lvnx-left.png" alt="">
+          <div class="slide-content" style="padding-top:5.3cqw;">
+            <p class="eyebrow">The design test</p>
+            <h1 style="font-size:3.8cqw;">Every person should answer four questions</h1>
+            <div class="design-test">
+              <div class="design-test__question">Why am I here?</div>
+              <div class="design-test__question">What do I owe?</div>
+              <div class="design-test__question">What do I get?</div>
+              <div class="design-test__question">How do we know it worked?</div>
+            </div>
+            <p class="subtitle" style="margin-top:1.65cqw;">If the answers are not clear, the lane is not ready to launch.</p>
+          </div>
+          <div class="slide-meta"><span class="slide-meta__source">Synthesis</span><span class="slide-meta__number">27</span></div>
+          <aside class="slide-notes">
+            <p>Use these four questions as the final review for committee charters, volunteer roles, membership benefits, partner briefs, sponsor packages, and Council invitations.</p>
+          </aside>
+        </section>
+      </main>
+
+      <aside class="notes-panel" id="notesPanel" aria-live="polite">
+        <h2>Presenter notes</h2>
+        <div id="notesContent"></div>
+      </aside>
+    </div>
+
+    <footer class="deck-footer">
+      <span id="slideCounter">1 / 27</span>
+      <div class="progress" aria-label="Deck progress"><div class="progress__bar" id="progressBar"></div></div>
+      <span class="deck-footer__help">← → navigate · O overview · N notes · F full screen</span>
+    </footer>
+  </div>
+
+  <dialog id="overviewDialog" aria-labelledby="overviewTitle">
+    <div class="overview__header">
+      <h2 id="overviewTitle">Deck overview</h2>
+      <button class="control-button" id="closeOverviewButton" type="button">Close</button>
+    </div>
+    <div class="overview__grid" id="overviewGrid"></div>
+  </dialog>
+
+  <script>
+    (() => {
+      const STORAGE_PREFIX = "lvn-operating-model:v1:";
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const prevButton = document.getElementById("prevButton");
+      const nextButton = document.getElementById("nextButton");
+      const overviewButton = document.getElementById("overviewButton");
+      const overviewDialog = document.getElementById("overviewDialog");
+      const closeOverviewButton = document.getElementById("closeOverviewButton");
+      const overviewGrid = document.getElementById("overviewGrid");
+      const notesButton = document.getElementById("notesButton");
+      const notesPanel = document.getElementById("notesPanel");
+      const notesContent = document.getElementById("notesContent");
+      const copyLinkButton = document.getElementById("copyLinkButton");
+      const exportButton = document.getElementById("exportButton");
+      const fullscreenButton = document.getElementById("fullscreenButton");
+      const printButton = document.getElementById("printButton");
+      const slideCounter = document.getElementById("slideCounter");
+      const progressBar = document.getElementById("progressBar");
+      let currentIndex = 0;
+      let notesVisible = false;
+      let touchStartX = null;
+
+      const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+      function indexFromHash() {
+        const match = window.location.hash.match(/^#slide-(\d{2})$/);
+        if (!match) return 0;
+        return clamp(Number(match[1]) - 1, 0, slides.length - 1);
+      }
+
+      function renderNotes() {
+        const source = slides[currentIndex].querySelector(".slide-notes");
+        notesContent.innerHTML = source ? source.innerHTML : "<p>No notes for this slide.</p>";
+      }
+
+      function showSlide(index, updateHash = true) {
+        currentIndex = clamp(index, 0, slides.length - 1);
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === currentIndex;
+          slide.classList.toggle("active", active);
+          slide.setAttribute("aria-hidden", active ? "false" : "true");
+        });
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex === slides.length - 1;
+        slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+        progressBar.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
+        document.title = `${slides[currentIndex].dataset.title} · LVN Operating Model`;
+        renderNotes();
+        if (updateHash) history.replaceState(null, "", `#slide-${String(currentIndex + 1).padStart(2, "0")}`);
+      }
+
+      function move(delta) { showSlide(currentIndex + delta); }
+
+      function toggleNotes() {
+        notesVisible = !notesVisible;
+        notesPanel.classList.toggle("visible", notesVisible);
+        notesButton.setAttribute("aria-pressed", String(notesVisible));
+        notesButton.textContent = notesVisible ? "Hide notes" : "Notes";
+      }
+
+      function openOverview() {
+        if (typeof overviewDialog.showModal === "function") overviewDialog.showModal();
+        else overviewDialog.setAttribute("open", "");
+      }
+
+      function closeOverview() {
+        if (typeof overviewDialog.close === "function") overviewDialog.close();
+        else overviewDialog.removeAttribute("open");
+      }
+
+      function buildOverview() {
+        slides.forEach((slide, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "overview__item";
+          button.innerHTML = `<span class="overview__number">${String(index + 1).padStart(2, "0")}</span><span class="overview__title">${slide.dataset.title}</span><span class="overview__source">${slide.dataset.source}</span>`;
+          button.addEventListener("click", () => {
+            showSlide(index);
+            closeOverview();
+          });
+          overviewGrid.appendChild(button);
+        });
+      }
+
+      function persistEditableFields() {
+        document.querySelectorAll("[data-edit-key]").forEach((field) => {
+          const key = field.dataset.editKey;
+          const saved = localStorage.getItem(STORAGE_PREFIX + key);
+          if (saved !== null) field.textContent = saved;
+          field.addEventListener("input", () => localStorage.setItem(STORAGE_PREFIX + key, field.textContent.trim()));
+        });
+      }
+
+      function persistStatuses() {
+        const states = ["Open", "Discussing", "Decided"];
+        document.querySelectorAll("[data-status-key]").forEach((button) => {
+          const key = button.dataset.statusKey;
+          const saved = localStorage.getItem(STORAGE_PREFIX + key);
+          if (states.includes(saved)) {
+            button.dataset.status = saved;
+            button.textContent = saved;
+          }
+          button.addEventListener("click", () => {
+            const next = states[(states.indexOf(button.dataset.status) + 1) % states.length];
+            button.dataset.status = next;
+            button.textContent = next;
+            localStorage.setItem(STORAGE_PREFIX + key, next);
+          });
+        });
+      }
+
+      function exportWork() {
+        const entries = [];
+        document.querySelectorAll("[data-edit-key]").forEach((field) => {
+          entries.push({ key: field.dataset.editKey, value: field.textContent.trim() });
+        });
+        document.querySelectorAll("[data-status-key]").forEach((button) => {
+          entries.push({ key: button.dataset.statusKey, value: button.dataset.status });
+        });
+        const lines = [
+          "# LVN Strategy & Operating Model: Working Notes",
+          "",
+          `Exported: ${new Date().toLocaleString()}`,
+          "",
+          ...entries.map((entry) => `- **${entry.key}**: ${entry.value || "[blank]"}`),
+          ""
+        ];
+        const blob = new Blob([lines.join("\n")], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "lvn-operating-model-working-notes.md";
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      async function copyLink() {
+        const url = window.location.href;
+        try {
+          await navigator.clipboard.writeText(url);
+          copyLinkButton.textContent = "Copied";
+          window.setTimeout(() => { copyLinkButton.textContent = "Copy link"; }, 1200);
+        } catch {
+          window.prompt("Copy this slide link:", url);
+        }
+      }
+
+      async function toggleFullscreen() {
+        try {
+          if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+          else await document.exitFullscreen();
+        } catch {
+          return;
+        }
+      }
+
+      prevButton.addEventListener("click", () => move(-1));
+      nextButton.addEventListener("click", () => move(1));
+      overviewButton.addEventListener("click", openOverview);
+      closeOverviewButton.addEventListener("click", closeOverview);
+      notesButton.addEventListener("click", toggleNotes);
+      copyLinkButton.addEventListener("click", copyLink);
+      exportButton.addEventListener("click", exportWork);
+      fullscreenButton.addEventListener("click", toggleFullscreen);
+      printButton.addEventListener("click", () => window.print());
+
+      overviewDialog.addEventListener("click", (event) => {
+        if (event.target === overviewDialog) closeOverview();
+      });
+
+      window.addEventListener("hashchange", () => showSlide(indexFromHash(), false));
+
+      document.addEventListener("keydown", (event) => {
+        const target = event.target;
+        const isEditing = target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
+        if (isEditing) return;
+        if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key)) { event.preventDefault(); move(1); }
+        if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) { event.preventDefault(); move(-1); }
+        if (event.key === "Home") { event.preventDefault(); showSlide(0); }
+        if (event.key === "End") { event.preventDefault(); showSlide(slides.length - 1); }
+        if (event.key.toLowerCase() === "o") { event.preventDefault(); openOverview(); }
+        if (event.key.toLowerCase() === "n") { event.preventDefault(); toggleNotes(); }
+        if (event.key.toLowerCase() === "f") { event.preventDefault(); toggleFullscreen(); }
+      });
+
+      document.addEventListener("touchstart", (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+      }, { passive: true });
+
+      document.addEventListener("touchend", (event) => {
+        if (touchStartX === null) return;
+        const delta = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) > 55) move(delta < 0 ? 1 : -1);
+        touchStartX = null;
+      }, { passive: true });
+
+      document.addEventListener("fullscreenchange", () => {
+        fullscreenButton.textContent = document.fullscreenElement ? "Exit full screen" : "Full screen";
+      });
+
+      buildOverview();
+      persistEditableFields();
+      persistStatuses();
+      showSlide(indexFromHash(), false);
+      if (!window.location.hash) history.replaceState(null, "", "#slide-01");
+    })();
+  </script>
+</body>
+</html>
