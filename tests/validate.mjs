@@ -32,6 +32,7 @@ const site = readFileSync(join(root, "public/index.html"), "utf8");
 for (const required of [
   "data-filter=\"governance\"",
   "data-lane=\"volunteer\"",
+  "data-lane=\"executive\"",
   "data-cadence=\"board\"",
   "data-phase=\"2027\"",
   "data-edit-key=\"decision-architecture-owner\"",
@@ -42,6 +43,10 @@ for (const required of [
 
 const deck = readFileSync(join(root, "public/deck.html"), "utf8");
 if (!deck.includes('id="slide-24"')) errors.push("Presentation is missing the linked decision slide");
+
+for (const [name, html] of [["website", site], ["presentation", deck]]) {
+  if (/c[ -]?suite/i.test(html)) errors.push(`${name} still contains a C-Suite reference`);
+}
 
 if (errors.length) {
   console.error(errors.join("\n"));
